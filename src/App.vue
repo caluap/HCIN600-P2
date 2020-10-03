@@ -3,6 +3,7 @@
     {{ userId }}
     <p>Oi</p>
     {{ testData }}
+    <button @click="submit()">Add</button>
   </div>
 </template>
 
@@ -14,6 +15,16 @@ export default {
     return {
       testData: []
     };
+  },
+  methods: {
+    submit() {
+      // db.collection("test_data").add({
+      //   hello: "world"
+      // });
+      db.collection("test_data")
+        .doc("test")
+        .set({ yes: "no", maybe: "yes!" });
+    }
   },
 
   firestore: {
