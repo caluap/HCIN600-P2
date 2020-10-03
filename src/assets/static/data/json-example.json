@@ -1,0 +1,34 @@
+{
+  "wChvmMXre0XU7QEfAeaVxMU1gnf2": {
+    "general_data": {
+      "animated_smccs_test": null,
+      "start_time": null,
+      "end_time": null,
+      "answers_count": null,
+      "effectively_finished": null,
+      "open_ended_answer": null,
+      "about_the_participant": {
+        "age_group": null,
+        "education": null,
+        "gender": null
+      },
+      "about_the_machine": {
+        "possible_geographic_data": null,
+        "possible_browser_data": null
+      }
+    },
+    "answers": [
+      {
+        "number": null,
+        "start_time": null,
+        "end_time": null,
+        "play_count": null,
+        "stanza_code": null,
+        "stanza_img": null,
+        "left_option_code": null,
+        "right_option_code": null,
+        "chose_the_correct_answer": null
+      }
+    ]
+  }
+}
