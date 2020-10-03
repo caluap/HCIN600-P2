@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    {{ userId }}
     <p>Oi</p>
     {{ testData }}
   </div>
