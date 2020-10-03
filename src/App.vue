@@ -1,12 +1,25 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <p>Oi</p>
+    {{ testData }}
   </div>
 </template>
+
+<script>
+import { db } from "./db";
+export default {
+  name: "app",
+  data() {
+    return {
+      testData: []
+    };
+  },
+
+  firestore: {
+    testData: db.collection("test_data")
+  }
+};
+</script>
 
 <style lang="scss">
 #app {
