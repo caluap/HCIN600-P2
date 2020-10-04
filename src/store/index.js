@@ -12,12 +12,16 @@ export default new Vuex.Store({
     collectedData: {},
     offlineMode: false,
     ready: false,
+    docRef: null,
   },
   getters: {},
   mutations: {
     ...vuexfireMutations,
     setUserId(state, id) {
       state.userId = id;
+    },
+    setDocRef(state, docRef) {
+      state.docRef = docRef;
     },
   },
   actions: {
@@ -29,8 +33,11 @@ export default new Vuex.Store({
           .then(
             (user) => {
               context.commit("setUserId", user.user.uid);
-              let docRef = db.collection("test_data").doc(context.state.userId);
-              docRef.get().then((doc) => {
+              context.commit(
+                "setDocRef",
+                db.collection("test_data").doc(context.state.userId)
+              );
+              context.state.docRef.get().then((doc) => {
                 if (!doc.exists) {
                   // new user!
                   console.log(
@@ -50,9 +57,9 @@ export default new Vuex.Store({
                         gender: null,
                       },
                     },
-                    anwers: [],
+                    answers: [],
                   };
-                  docRef
+                  context.state.docRef
                     .set(emptyCollectedData)
                     .then(function() {
                       return context.bindFirestoreRef(
@@ -65,7 +72,10 @@ export default new Vuex.Store({
                     });
                 } else {
                   console.log(`Welcome back, ${context.state.userId}!`);
-                  return context.bindFirestoreRef("collectedData", docRef);
+                  return context.bindFirestoreRef(
+                    "collectedData",
+                    context.state.docRef
+                  );
                 }
               });
             },
@@ -75,6 +85,13 @@ export default new Vuex.Store({
           );
       }
     }),
+    pushAnswer(context, newAnswer) {
+      let dataCopy = { ...context.state.collectedData };
+      console.log(dataCopy);
+      dataCopy.answers.push(newAnswer);
+      dataCopy.general_data.answers_count++;
+      context.state.docRef.set(dataCopy);
+    },
   },
   modules: {},
 });

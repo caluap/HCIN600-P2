@@ -2,11 +2,12 @@
   <div id="app">
     <p>Oi, {{ userId }}</p>
     <p>{{ collectedData }}</p>
+    <button @click="newAnswer">Nova resposta</button>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "app",
@@ -16,7 +17,22 @@ export default {
   computed: {
     ...mapState(["userId", "collectedData"])
   },
-  methods: {}
+  methods: {
+    ...mapActions(["pushAnswer"]),
+    newAnswer() {
+      this.pushAnswer({
+        number: Math.random() * 5,
+        start_time: Math.random() * 5,
+        end_time: Math.random() * 5,
+        play_count: Math.random() * 5,
+        stanza_code: Math.random() * 5,
+        stanza_img: Math.random() * 5,
+        left_option_code: Math.random() * 5,
+        right_option_code: Math.random() * 5,
+        chose_the_correct_answer: !Math.round(Math.random())
+      });
+    }
+  }
 };
 </script>
 
