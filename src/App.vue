@@ -1,35 +1,22 @@
 <template>
   <div id="app">
-    <!-- {{ userId }} -->
-    <p>Oi</p>
-    {{ testData }}
-    <!-- <button @click="submit()">Add</button> -->
+    <p>Oi, {{ userId }}</p>
+    <p>{{ collectedData }}</p>
   </div>
 </template>
 
 <script>
-import { db } from "./db";
+import { mapState } from "vuex";
+
 export default {
   name: "app",
   data() {
-    return {
-      testData: []
-    };
+    return {};
   },
-  methods: {
-    submit() {
-      // db.collection("test_data").add({
-      //   hello: "world"
-      // });
-      // db.collection("test_data")
-      //   .doc(this.userId)
-      //   .set(this.collectedData);
-    }
+  computed: {
+    ...mapState(["userId", "collectedData"])
   },
-
-  firestore: {
-    testData: db.collection("test_data")
-  }
+  methods: {}
 };
 </script>
 
