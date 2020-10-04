@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    {{ userId }}
+    <!-- {{ userId }} -->
     <p>Oi</p>
     {{ testData }}
-    <button @click="submit()">Add</button>
+    <!-- <button @click="submit()">Add</button> -->
   </div>
 </template>
 
@@ -21,9 +21,9 @@ export default {
       // db.collection("test_data").add({
       //   hello: "world"
       // });
-      db.collection("test_data")
-        .doc("test")
-        .set({ yes: "no", maybe: "yes!" });
+      // db.collection("test_data")
+      //   .doc(this.userId)
+      //   .set(this.collectedData);
     }
   },
 
