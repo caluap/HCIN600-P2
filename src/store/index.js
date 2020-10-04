@@ -87,9 +87,20 @@ export default new Vuex.Store({
     }),
     pushAnswer(context, newAnswer) {
       let dataCopy = { ...context.state.collectedData };
-      console.log(dataCopy);
       dataCopy.answers.push(newAnswer);
       dataCopy.general_data.answers_count++;
+      context.state.docRef.set(dataCopy);
+    },
+    setupUserProfile(context, profile) {
+      let dataCopy = { ...context.state.collectedData };
+      dataCopy.general_data.about_the_participant = profile;
+      context.state.docRef.set(dataCopy);
+    },
+    setupOpenEndedAnswer(context, openEndedAnswer) {
+      let dataCopy = { ...context.state.collectedData };
+      dataCopy.general_data.open_ended_answer = openEndedAnswer;
+      dataCopy.general_data.end_time = new Date();
+      dataCopy.general_data.effectively_finished = true;
       context.state.docRef.set(dataCopy);
     },
   },
