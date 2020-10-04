@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{ loading: !ready }">
     <p>Oi, {{ userId }}</p>
     <p>{{ collectedData }}</p>
     <button @click="newAnswer">Nova resposta</button>
@@ -15,7 +15,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapState(["userId", "collectedData"])
+    ...mapState(["userId", "collectedData", "ready"])
   },
   methods: {
     ...mapActions(["pushAnswer"]),
@@ -43,6 +43,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  &.loading {
+    background: yellow;
+  }
 }
 
 #nav {

@@ -23,6 +23,12 @@ export default new Vuex.Store({
     setDocRef(state, docRef) {
       state.docRef = docRef;
     },
+    isReady(state) {
+      state.ready = true;
+    },
+    isntReady(state) {
+      state.ready = false;
+    },
   },
   actions: {
     init: firestoreAction((context) => {
@@ -40,9 +46,6 @@ export default new Vuex.Store({
               context.state.docRef.get().then((doc) => {
                 if (!doc.exists) {
                   // new user!
-                  console.log(
-                    `Hello, ${context.state.userId}! I see this is your first time here... make yourself at home.`
-                  );
                   let emptyCollectedData = {
                     general_data: {
                       animated_smccs_test: !Math.round(Math.random()),
@@ -62,6 +65,10 @@ export default new Vuex.Store({
                   context.state.docRef
                     .set(emptyCollectedData)
                     .then(function() {
+                      console.log(
+                        `Hello, ${context.state.userId}. I see this is your first time here... make yourself at home!`
+                      );
+                      context.commit("isReady");
                       return context.bindFirestoreRef(
                         "collectedData",
                         db.collection("test_data").doc(context.state.userId)
@@ -72,6 +79,7 @@ export default new Vuex.Store({
                     });
                 } else {
                   console.log(`Welcome back, ${context.state.userId}!`);
+                  context.commit("isReady");
                   return context.bindFirestoreRef(
                     "collectedData",
                     context.state.docRef
@@ -86,22 +94,31 @@ export default new Vuex.Store({
       }
     }),
     pushAnswer(context, newAnswer) {
+      context.commit("isntReady");
       let dataCopy = { ...context.state.collectedData };
       dataCopy.answers.push(newAnswer);
       dataCopy.general_data.answers_count++;
-      context.state.docRef.set(dataCopy);
+      context.state.docRef.set(dataCopy).then(() => {
+        context.commit("isReady");
+      });
     },
     setupUserProfile(context, profile) {
+      context.commit("isntReady");
       let dataCopy = { ...context.state.collectedData };
       dataCopy.general_data.about_the_participant = profile;
-      context.state.docRef.set(dataCopy);
+      context.state.docRef.set(dataCopy).then(() => {
+        context.commit("isReady");
+      });
     },
     setupOpenEndedAnswer(context, openEndedAnswer) {
+      context.commit("isntReady");
       let dataCopy = { ...context.state.collectedData };
       dataCopy.general_data.open_ended_answer = openEndedAnswer;
       dataCopy.general_data.end_time = new Date();
       dataCopy.general_data.effectively_finished = true;
-      context.state.docRef.set(dataCopy);
+      context.state.docRef.set(dataCopy).then(() => {
+        context.commit("isReady");
+      });
     },
   },
   modules: {},
