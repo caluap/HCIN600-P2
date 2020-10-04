@@ -17,6 +17,27 @@ export default new Vuex.Store({
     setUserId(state, id) {
       state.userId = id;
     },
+    setupExistingUsersData(state, data) {
+      state.collectedData = data;
+    },
+    setupNewUser(state) {
+      state.collectedData = {
+        general_data: {
+          animated_smccs_test: !Math.round(Math.random()),
+          start_time: new Date(),
+          end_time: null,
+          answers_count: 0,
+          effectively_finished: false,
+          open_ended_answer: "",
+          about_the_participant: {
+            age_group: null,
+            education: null,
+            gender: null,
+          },
+        },
+        anwers: [],
+      };
+    },
   },
   actions: {
     init(context) {
@@ -31,26 +52,15 @@ export default new Vuex.Store({
               let docRef = db.collection("test_data").doc(context.state.userId);
               docRef.get().then((doc) => {
                 if (doc.exists) {
-                  console.log(doc.data());
+                  let data = doc.data();
+                  context.commit("setupExistingUsersData", {
+                    general_data: data.general_data,
+                    answers: data.answers,
+                  });
                 } else {
-                  console.log(`doesn't exist!`);
+                  context.commit("setupNewUser");
                 }
               });
-
-              // general_data: {
-              //   animated_smccs_test: !Math.round(Math.random()),
-              //   start_time: new Date(),
-              //   end_time: null,
-              //   answers_count: 0,
-              //   effectively_finished: false,
-              //   open_ended_answer: "",
-              //   about_the_participant: {
-              //     age_group: null,
-              //     education: null,
-              //     gender: null,
-              //   },
-              // },
-              // anwers: [],
             },
             (err) => {
               console.log(err);
