@@ -110,12 +110,30 @@ export default new Vuex.Store({
         context.commit("isReady");
       });
     },
-    setupOpenEndedAnswer(context, openEndedAnswer) {
+    closeTest(context, openEndedAnswer) {
       context.commit("isntReady");
       let dataCopy = { ...context.state.collectedData };
       dataCopy.general_data.open_ended_answer = openEndedAnswer;
       dataCopy.general_data.end_time = new Date();
       dataCopy.general_data.effectively_finished = true;
+
+      // calculate some simple statistics
+      let totalDuration = 0,
+        correctAnswers = 0;
+      dataCopy.answers.forEach((answer) => {
+        totalDuration += answer.end_time - answer.start_time;
+        if (answer.chose_the_right_choice) {
+          correctAnswers++;
+        }
+      });
+
+      dataCopy.statistics = {
+        average_answer_duration:
+          totalDuration / dataCopy.general_data.answers_count / 1000,
+        percentage_of_correct_answers:
+          correctAnswers / dataCopy.general_data.answers_count,
+      };
+
       context.state.docRef.set(dataCopy).then(() => {
         context.commit("isReady");
       });

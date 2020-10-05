@@ -11,16 +11,17 @@
         "age_group": null,
         "education": null,
         "gender": null
-      },
-      "about_the_machine": {
-        "possible_geographic_data": null,
-        "possible_browser_data": null
       }
+    },
+    "statistics": {
+      "average_answer_duration": null,
+      "percentage_of_correct_answers": null
     },
     "answers": [
       {
         "start_time": null,
         "end_time": null,
+        "duration": null,
         "play_count": null,
         "stanza_code": null,
         "stanza_url": null,

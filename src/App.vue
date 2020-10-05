@@ -23,6 +23,7 @@ export default {
       this.pushAnswer({
         start_time: new Date(),
         end_time: new Date(),
+        duration: new Date(),
         play_count: Math.round(Math.random() * 5),
         stanza_code: `#${Math.round(Math.random() * 9999)}`,
         stanza_url: "http://www.example.com/",
