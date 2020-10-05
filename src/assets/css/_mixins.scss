@@ -1,0 +1,60 @@
+$font-size-ratio: 1.2;
+$base-font-size: 18/16 * 1rem;
+
+// @ https://css-tricks.com/snippets/sass/power-function/
+@function pow($number, $exponent) {
+  $value: 1;
+
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $value: $value * $number;
+    }
+  } @else if $exponent < 0 {
+    @for $i from 1 through -$exponent {
+      $value: $value / $number;
+    }
+  }
+
+  @return $value;
+}
+
+@mixin fs($s: 1, $linha: 1.35, $imp: false) {
+  // bigger fonts tend to ask for smaller line-heights
+  // (which can be overriden by raising the $linha parameter
+  $div: pow(1.04, $s);
+  @if $imp == false {
+    font-size: $base-font-size * pow($font-size-ratio, $s);
+    line-height: $base-font-size * pow($font-size-ratio, $s) * $linha / $div;
+  } @else {
+    font-size: $base-font-size * pow($font-size-ratio, $s) !important;
+    line-height: $base-font-size *
+      pow($font-size-ratio, $s) *
+      $linha /
+      $div !important;
+  }
+}
+
+@mixin box_shadow($level) {
+  $r: 0.4;
+  @if $level == 1 {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12 * $r),
+      0 1px 2px rgba(0, 0, 0, 0.24 * $r);
+  } @else if $level == 2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16 * $r),
+      0 3px 6px rgba(0, 0, 0, 0.23 * $r);
+  } @else if $level == 3 {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19 * $r),
+      0 6px 6px rgba(0, 0, 0, 0.23 * $r);
+  } @else if $level == 4 {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25 * $r),
+      0 10px 10px rgba(0, 0, 0, 0.22 * $r);
+  } @else if $level == 5 {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3 * $r),
+      0 15px 12px rgba(0, 0, 0, 0.22 * $r);
+  }
+}
+
+@mixin faux-caps {
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}

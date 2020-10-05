@@ -4,6 +4,8 @@ import router from "./router";
 import { firestorePlugin } from "vuefire";
 import store from "./store";
 
+import "@/assets/css/main.scss";
+
 Vue.use(firestorePlugin);
 Vue.config.productionTip = false;
 
