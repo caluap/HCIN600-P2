@@ -1,8 +1,6 @@
 <template>
   <div id="app" :class="{ loading: !ready }">
-    <p>Oi, {{ userId }}</p>
-    <p>{{ collectedData }}</p>
-    <button @click="newAnswer">Nova resposta</button>
+    <router-view />
   </div>
 </template>
 
