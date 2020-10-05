@@ -21,15 +21,21 @@ export default {
     ...mapActions(["pushAnswer"]),
     newAnswer() {
       this.pushAnswer({
-        number: Math.random() * 5,
-        start_time: Math.random() * 5,
-        end_time: Math.random() * 5,
-        play_count: Math.random() * 5,
-        stanza_code: Math.random() * 5,
-        stanza_img: Math.random() * 5,
-        left_option_code: Math.random() * 5,
-        right_option_code: Math.random() * 5,
-        chose_the_correct_answer: !Math.round(Math.random())
+        start_time: new Date(),
+        end_time: new Date(),
+        play_count: Math.round(Math.random() * 5),
+        stanza_code: `#${Math.round(Math.random() * 9999)}`,
+        stanza_url: "http://www.example.com/",
+        first_option_audio: `/audio/audio-${Math.round(
+          Math.random() * 50
+        )}.mp3`,
+        play_count_first_audio: Math.round(Math.random() * 5),
+        second_option_audio: `/audio/audio-${Math.round(
+          Math.random() * 50
+        )}.mp3`,
+        play_count_second_audio: Math.round(Math.random() * 5),
+        choice_index: Math.round(Math.random()),
+        chose_the_right_choice: !Math.round(Math.random())
       });
     }
   }

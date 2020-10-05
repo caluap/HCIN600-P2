@@ -19,15 +19,17 @@
     },
     "answers": [
       {
-        "number": null,
         "start_time": null,
         "end_time": null,
         "play_count": null,
         "stanza_code": null,
-        "stanza_img": null,
-        "left_option_code": null,
-        "right_option_code": null,
-        "chose_the_correct_answer": null
+        "stanza_url": null,
+        "first_option_audio": null,
+        "play_count_first_audio": null,
+        "second_option_audio": null,
+        "play_count_second_audio": null,
+        "choice_index": null,
+        "chose_the_right_choice": null
       }
     ]
   }
