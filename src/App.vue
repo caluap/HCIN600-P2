@@ -35,6 +35,7 @@ export default {
         )}.mp3`,
         play_count_second_audio: Math.round(Math.random() * 5),
         choice_index: Math.round(Math.random()),
+        likert_certainty: Math.round(Math.random() * 5),
         chose_the_right_choice: !Math.round(Math.random())
       });
     }

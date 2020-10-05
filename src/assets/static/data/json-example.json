@@ -29,6 +29,7 @@
         "second_option_audio": null,
         "play_count_second_audio": null,
         "choice_index": null,
+        "likert_certainty": null,
         "chose_the_right_choice": null
       }
     ]
