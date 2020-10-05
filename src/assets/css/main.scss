@@ -1,3 +1,30 @@
 @import "reset";
 @import "mixins";
 @import "media_queries";
+
+@import url("https://fonts.googleapis.com/css2?family=Recursive:wght,CASL@300..800,0.8&display=swap");
+
+$accent: #206bf8;
+$light-accent: #9ef7cd;
+$pad: 1rem;
+
+body {
+  &,
+  * {
+    font-family: "Recursive", sans-serif;
+  }
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @include fs(0);
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+
+  background: #dfdfdf;
+
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+}
