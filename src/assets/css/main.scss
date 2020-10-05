@@ -1,12 +1,9 @@
 @import "reset";
 @import "mixins";
 @import "media_queries";
+@import "variables";
 
 @import url("https://fonts.googleapis.com/css2?family=Recursive:wght,CASL@300..800,0.8&display=swap");
-
-$accent: #206bf8;
-$light-accent: #9ef7cd;
-$pad: 1rem;
 
 body {
   &,

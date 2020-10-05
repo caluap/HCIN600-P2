@@ -1,0 +1,41 @@
+<template>
+  <router-link :to="href">
+    <slot></slot>
+  </router-link>
+</template>
+
+<script>
+export default {
+  name: "PageNav",
+  props: { href: { type: String, default: "/" } }
+};
+</script>
+
+<style scoped lang="scss">
+@import "@/assets/css/_variables.scss";
+@import "@/assets/css/_mixins.scss";
+
+a {
+  display: inline-block;
+  background: $accent;
+  color: white;
+  padding: 0.9rem 2rem 1rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: 0.15s all ease;
+
+  font-weight: 500;
+  @include fs(1);
+  cursor: pointer;
+
+  &:not(.disabled):hover,
+  &:not([disabled]):hover {
+    background: black;
+  }
+  &[disabled],
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+}
+</style>
