@@ -1,10 +1,10 @@
 <template>
   <div>
-    <progress
+    <ProgressBar
       id="test-progress"
       :max="testData.questions.length"
       :value="currentQuestion"
-    ></progress>
+    ></ProgressBar>
     <section id="smcc"></section>
     <section id="audio-files"></section>
     <section id="likert-scale"></section>
@@ -15,6 +15,7 @@
 <script>
 import { testData } from "@/data/data.js";
 import PageNav from "@/components/PageNav.vue";
+import ProgressBar from "@/components/ProgressBar.vue";
 
 export default {
   name: "TestPerSe",
@@ -30,6 +31,9 @@ export default {
       this.currentQuestion++;
     }
   },
-  components: { PageNav }
+  components: { PageNav, ProgressBar }
 };
 </script>
+
+<style lang="scss" scoped>
+</style>
