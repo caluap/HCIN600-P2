@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { testData } from "@/data/data.js";
+import { testData } from "@/data.js";
 import PageNav from "@/components/PageNav.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
 
