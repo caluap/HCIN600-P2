@@ -1,5 +1,9 @@
 <template>
-  <a :is="!!href ? `router-link` : `a`" :to="!!href ? href : false">
+  <a
+    @click="$emit(`clicked`)"
+    :is="!!href ? `router-link` : `a`"
+    :to="!!href ? href : false"
+  >
     <slot></slot>
   </a>
 </template>
