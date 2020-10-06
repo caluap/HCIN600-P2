@@ -6,7 +6,7 @@
       omnis, accusamus consectetur ut inventore soluta. Omnis, quod. Laudantium,
       fuga non?
     </LongText>
-    <PageNav>Início?</PageNav>
+    <PageNav href="o-teste-em-si">E agora, o teste</PageNav>
   </div>
 </template>
 

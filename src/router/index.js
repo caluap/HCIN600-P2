@@ -37,6 +37,12 @@ const routes = [
         /* webpackChunkName: "ParticipantProfile" */ "../views/ParticipantProfile.vue"
       ),
   },
+  {
+    path: "/o-teste-em-si",
+    name: "TestPerSe",
+    component: () =>
+      import(/* webpackChunkName: "TestPerSe" */ "../views/TestPerSe.vue"),
+  },
 ];
 
 const router = new VueRouter({
