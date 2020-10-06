@@ -28,6 +28,8 @@ a {
   border-radius: 0.5rem;
   transition: 0.15s all ease;
 
+  user-select: none;
+
   font-weight: 500;
   @include fs(1);
   cursor: pointer;
