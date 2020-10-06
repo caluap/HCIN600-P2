@@ -1,4 +1,4 @@
-let soundsPath = "./assets/static/sounds";
+let soundsPath = "@/assets/static/sounds";
 export var testData = {
   questions: [
     {
