@@ -35,9 +35,13 @@ progress {
       background-color: rgba(0, 0, 0, 0.125);
     }
     &::-webkit-progress-value {
+      transition: width 2s ease;
       background-color: $accent;
     }
+    // for some reasone this has to be split from the above block,
+    // even though they are both equal
     &::-moz-progress-bar {
+      transition: width 2s ease;
       background-color: $accent;
     }
   }
