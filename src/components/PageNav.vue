@@ -1,13 +1,13 @@
 <template>
-  <router-link :to="href">
+  <a :is="!!href ? `router-link` : `a`" :to="!!href ? href : false">
     <slot></slot>
-  </router-link>
+  </a>
 </template>
 
 <script>
 export default {
   name: "PageNav",
-  props: { href: { type: String, default: "/" } }
+  props: { href: { type: String, default: "" } }
 };
 </script>
 
