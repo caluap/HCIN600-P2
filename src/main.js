@@ -3,10 +3,12 @@ import App from "./App.vue";
 import router from "./router";
 import { firestorePlugin } from "vuefire";
 import store from "./store";
+import VueYouTubeEmbed from "vue-youtube-embed";
 
 import "@/assets/css/main.scss";
 
 Vue.use(firestorePlugin);
+Vue.use(VueYouTubeEmbed);
 Vue.config.productionTip = false;
 
 new Vue({
