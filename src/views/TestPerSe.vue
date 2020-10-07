@@ -17,7 +17,20 @@
         <img :src="testData.questions[currentQuestion].imageUrl" alt="" />
       </template>
     </section>
-    <section id="audio-files"></section>
+    <section id="audio-files" :class="{ 'invert-order': randomBool }">
+      <div>
+        <audio-component
+          :audio-file="testData.questions[currentQuestion].correctAudioUrl"
+        />
+        <p>Oi oi oi oi</p>
+      </div>
+      <div>
+        <audio-component
+          :audio-file="testData.questions[currentQuestion].incorrectAudioUrl"
+        />
+        <p>Tchau tchau tchau</p>
+      </div>
+    </section>
     <section id="likert-scale"></section>
     <PageNav @clicked="nextQuestion">Próxima Pergunta</PageNav>
   </div>
@@ -28,12 +41,14 @@ import { mapState, mapActions } from "vuex";
 import { testData } from "@/data.js";
 import PageNav from "@/components/PageNav.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
+import AudioComponent from "@/components/AudioComponent.vue";
 
 export default {
   name: "TestPerSe",
   data() {
     return {
       currentQuestion: 0,
+      randomBool: !Math.round(Math.random()),
       testData: testData
     };
   },
@@ -47,9 +62,28 @@ export default {
       this.currentQuestion++;
     }
   },
-  components: { PageNav, ProgressBar }
+  components: { PageNav, ProgressBar, AudioComponent }
 };
 </script>
 
 <style lang="scss" scoped>
+#audio-files {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  &.invert-order {
+    :nth-child(1) {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    :nth-child(2) {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  }
+  &:not(.invert-order) {
+  }
+  .has-played + p {
+    color: red;
+  }
+}
 </style>
