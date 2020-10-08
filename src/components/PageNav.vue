@@ -1,6 +1,7 @@
 <template>
   <a
     @click="$emit(`clicked`)"
+    :class="{ disabled: disabledButton }"
     :is="!!href ? `router-link` : `a`"
     :to="!!href ? href : false"
   >
@@ -11,7 +12,13 @@
 <script>
 export default {
   name: "PageNav",
-  props: { href: { type: String, default: "" } }
+  props: {
+    href: { type: String, default: "" },
+    disabledButton: {
+      type: Boolean,
+      default: false
+    }
+  }
 };
 </script>
 
@@ -34,12 +41,10 @@ a {
   @include fs(1);
   cursor: pointer;
 
-  &:not(.disabled):hover,
-  &:not([disabled]):hover {
+  &:not(.disabled):hover {
     background: black;
   }
-  &[disabled],
-  &:disabled {
+  &.disabled {
     cursor: not-allowed;
     opacity: 0.4;
   }

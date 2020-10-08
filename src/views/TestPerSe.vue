@@ -31,7 +31,9 @@
       />
     </section>
     <section id="likert-scale"></section>
-    <PageNav @clicked="nextQuestion">Próxima Pergunta</PageNav>
+    <PageNav :disabled-button="likertCertainty == -1" @clicked="nextQuestion"
+      >Próxima Pergunta</PageNav
+    >
   </div>
 </template>
 
