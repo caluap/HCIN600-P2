@@ -22,13 +22,15 @@
     <section id="audio-files" :class="{ 'invert-order': randomBool }">
       <audio-component
         @played="incAudioPlays(0)"
-        @selected="selectedAudio = 0"
+        v-model="selectedAudio"
+        :audio-index="0"
         :can-select="audioPlays[0] && audioPlays[1]"
         :audio-file="testData.questions[currentQuestion].correctAudioUrl"
       />
       <audio-component
         @played="incAudioPlays(1)"
-        @selected="selectedAudio = 1"
+        v-model="selectedAudio"
+        :audio-index="1"
         :can-select="audioPlays[0] && audioPlays[1]"
         :audio-file="testData.questions[currentQuestion].incorrectAudioUrl"
       />
@@ -119,7 +121,7 @@ export default {
 #audio-files {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 2rem;
+  grid-gap: 0.5rem;
   &.invert-order {
     :nth-child(1) {
       grid-column: 2;

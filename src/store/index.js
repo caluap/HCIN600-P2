@@ -104,6 +104,8 @@ export default new Vuex.Store({
       let dataCopy = { ...context.state.collectedData };
       dataCopy.answers.push(newAnswer);
       dataCopy.general_data.answers_count++;
+      // always has the last available end time
+      dataCopy.general_data.end_time = newAnswer.end_time;
       context.state.docRef.set(dataCopy).then(() => {
         context.commit("endedFetch");
       });

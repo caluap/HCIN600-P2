@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{ selected: audioIndex == selectedAudio }">
     <audio
       ref="audio"
       controls
@@ -9,8 +9,19 @@
       Sentimos muito, mas seu navegador não é compatível com nosso tocador de
       áudio!
     </audio>
-    <button @click="selectMe()" :disabled="!canSelect">
-      Selecionar este áudio
+    <button ref="playBut" class="audio-control" @click="play()"></button>
+    <button
+      class="selection-button"
+      :class="{ selected: audioIndex == selectedAudio }"
+      @click="selectMe()"
+      :disabled="!canSelect"
+    >
+      <template v-if="audioIndex != selectedAudio">
+        Selecionar este áudio
+      </template>
+      <template v-else>
+        Áudio selecionado!
+      </template>
     </button>
   </div>
 </template>
@@ -18,17 +29,34 @@
 <script>
 export default {
   name: "AudioComponent",
-  props: ["audioFile", "canSelect"],
-  data() {
-    return {};
+  props: ["audioFile", "canSelect", "selectedAudio", "audioIndex"],
+  model: {
+    prop: "selectedAudio",
+    event: "change"
   },
   methods: {
     selectMe: function() {
-      this.$emit("selected");
+      this.$emit("change", this.audioIndex);
+    },
+    play: function() {
+      if (!this.$refs.audio.paused) {
+        this.$refs.playBut.classList.remove("playing");
+        if (
+          this.$refs.audio.currentTime >
+          (2 / 3) * this.$refs.audio.duration
+        ) {
+          this.$emit("played");
+        }
+        this.$refs.audio.currentTime = 0;
+      } else {
+        this.$refs.audio.play();
+        this.$refs.playBut.classList.add("playing");
+      }
     }
   },
   mounted: function() {
     this.$refs.audio.onended = () => {
+      this.$refs.playBut.classList.remove("playing");
       this.$emit("played");
     };
   }
@@ -36,14 +64,67 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/_variables.scss";
 audio {
-  width: 100%;
+  display: none;
 }
+$s: 2.5rem;
+
 div {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  align-items: center;
+  grid-gap: 0.5rem;
+  grid-template-columns: min-content auto;
+  padding: 0.5rem 0.6rem;
+  background-color: transparent;
+  border-radius: 0;
+  transition: 0.5s ease background-color, 0.6s ease border-radius;
+  &.selected {
+    background: #fff;
+    border-radius: 0.666rem;
+  }
 }
-button {
-  margin-top: 0.5rem;
+
+.audio-control {
+  background-color: black;
+  background-size: $s/2;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url("~@/assets/static/img/play-solid.svg");
+  width: $s * 2;
+  height: $s;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  &:hover {
+    background-color: $accent;
+  }
+  &.playing {
+    background-image: url("~@/assets/static/img/stop-solid.svg");
+  }
+}
+button.selection-button {
+  &:disabled {
+    opacity: 0;
+  }
+  height: $s;
+  transition: 0.5s ease all;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  &:not(:disabled) {
+    cursor: pointer;
+    &:not(.selected) {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  &.selected {
+    cursor: default;
+    font-weight: bold;
+  }
 }
 </style>
