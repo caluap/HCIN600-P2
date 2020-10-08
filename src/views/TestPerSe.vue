@@ -1,7 +1,7 @@
 <template>
   <div
     id="test-per-se"
-    v-if="ready && collectedData.general_data !== undefined"
+    v-if="ready && collectedData && collectedData.general_data !== undefined"
   >
     <ProgressBar
       id="test-progress"
@@ -34,6 +34,9 @@
     <PageNav :disabled-button="likertCertainty == -1" @clicked="nextQuestion"
       >Próxima Pergunta</PageNav
     >
+  </div>
+  <div v-else>
+    Carregando
   </div>
 </template>
 
