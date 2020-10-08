@@ -9,9 +9,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     userId: null,
-    collectedData: {},
+    collectedData: null,
     offlineMode: false,
     ready: false,
+    fetches: 0,
     docRef: null,
   },
   getters: {},
@@ -23,16 +24,21 @@ export default new Vuex.Store({
     setDocRef(state, docRef) {
       state.docRef = docRef;
     },
-    isReady(state) {
-      state.ready = true;
+    endedFetch(state) {
+      state.fetches--;
+      if (state.fetches == 0) {
+        state.ready = true;
+      }
     },
-    isntReady(state) {
+    startedFetch(state) {
+      state.fetches++;
       state.ready = false;
     },
   },
   actions: {
     init: firestoreAction((context) => {
       if (!context.state.offlineMode) {
+        context.commit("startedFetch");
         firebase
           .auth()
           .signInAnonymously()
@@ -68,7 +74,7 @@ export default new Vuex.Store({
                       console.log(
                         `Hello, ${context.state.userId}. I see this is your first time here... make yourself at home!`
                       );
-                      context.commit("isReady");
+                      context.commit("endedFetch");
                       return context.bindFirestoreRef(
                         "collectedData",
                         db.collection("test_data").doc(context.state.userId)
@@ -79,7 +85,7 @@ export default new Vuex.Store({
                     });
                 } else {
                   console.log(`Welcome back, ${context.state.userId}!`);
-                  context.commit("isReady");
+                  context.commit("endedFetch");
                   return context.bindFirestoreRef(
                     "collectedData",
                     context.state.docRef
@@ -94,24 +100,24 @@ export default new Vuex.Store({
       }
     }),
     pushAnswer(context, newAnswer) {
-      context.commit("isntReady");
+      context.commit("startedFetch");
       let dataCopy = { ...context.state.collectedData };
       dataCopy.answers.push(newAnswer);
       dataCopy.general_data.answers_count++;
       context.state.docRef.set(dataCopy).then(() => {
-        context.commit("isReady");
+        context.commit("endedFetch");
       });
     },
     setupUserProfile(context, profile) {
-      context.commit("isntReady");
+      context.commit("startedFetch");
       let dataCopy = { ...context.state.collectedData };
       dataCopy.general_data.about_the_participant = profile;
       context.state.docRef.set(dataCopy).then(() => {
-        context.commit("isReady");
+        context.commit("endedFetch");
       });
     },
     closeTest(context, openEndedAnswer) {
-      context.commit("isntReady");
+      context.commit("startedFetch");
       let dataCopy = { ...context.state.collectedData };
       dataCopy.general_data.open_ended_answer = openEndedAnswer;
       dataCopy.general_data.end_time = new Date();
@@ -135,7 +141,7 @@ export default new Vuex.Store({
       };
 
       context.state.docRef.set(dataCopy).then(() => {
-        context.commit("isReady");
+        context.commit("endedFetch");
       });
     },
   },

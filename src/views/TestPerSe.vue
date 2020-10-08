@@ -1,5 +1,8 @@
 <template>
-  <div id="test-per-se">
+  <div
+    id="test-per-se"
+    v-if="ready && collectedData.general_data !== undefined"
+  >
     <ProgressBar
       id="test-progress"
       :max="testData.questions.length"
@@ -51,7 +54,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["collectedData"])
+    ...mapState(["collectedData", "ready"])
   },
   methods: {
     ...mapActions(["pushAnswer"]),
