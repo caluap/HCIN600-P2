@@ -7,29 +7,25 @@
     ></ProgressBar>
     <section id="smcc">
       <template v-if="collectedData.general_data.animated_smccs_test">
-        <youtube
-          host="https://www.youtube-nocookie.com"
-          :video-id="testData.questions[currentQuestion].videoId"
-          >Animado?</youtube
-        >
+        <youtube :video-id="testData.questions[currentQuestion].videoId" />
       </template>
       <template v-else>
         <img :src="testData.questions[currentQuestion].imageUrl" alt="" />
       </template>
     </section>
     <section id="audio-files" :class="{ 'invert-order': randomBool }">
-      <div>
-        <audio-component
-          :audio-file="testData.questions[currentQuestion].correctAudioUrl"
-        />
-        <p>Oi oi oi oi</p>
-      </div>
-      <div>
-        <audio-component
-          :audio-file="testData.questions[currentQuestion].incorrectAudioUrl"
-        />
-        <p>Tchau tchau tchau</p>
-      </div>
+      <audio-component
+        @played="incAudioPlays(0)"
+        @selected="selectedAudio = 0"
+        :can-select="audioPlays[0] && audioPlays[1]"
+        :audio-file="testData.questions[currentQuestion].correctAudioUrl"
+      />
+      <audio-component
+        @played="incAudioPlays(1)"
+        @selected="selectedAudio = 1"
+        :can-select="audioPlays[0] && audioPlays[1]"
+        :audio-file="testData.questions[currentQuestion].incorrectAudioUrl"
+      />
     </section>
     <section id="likert-scale"></section>
     <PageNav @clicked="nextQuestion">Próxima Pergunta</PageNav>
@@ -48,6 +44,8 @@ export default {
   data() {
     return {
       currentQuestion: 0,
+      audioPlays: [0, 0],
+      selectedAudio: null,
       randomBool: !Math.round(Math.random()),
       testData: testData
     };
@@ -57,6 +55,9 @@ export default {
   },
   methods: {
     ...mapActions(["pushAnswer"]),
+    incAudioPlays: function(i) {
+      this.$set(this.audioPlays, i, this.audioPlays[i] + 1);
+    },
     nextQuestion: function() {
       // submits current answer to firebase
       this.currentQuestion++;
@@ -70,6 +71,7 @@ export default {
 #audio-files {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
   &.invert-order {
     :nth-child(1) {
       grid-column: 2;
@@ -81,9 +83,6 @@ export default {
     }
   }
   &:not(.invert-order) {
-  }
-  .has-played + p {
-    color: red;
   }
 }
 </style>
