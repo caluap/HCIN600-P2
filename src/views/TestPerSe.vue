@@ -30,7 +30,9 @@
         :audio-file="testData.questions[currentQuestion].incorrectAudioUrl"
       />
     </section>
-    <section id="likert-scale"></section>
+    <section id="likert-scale" v-if="selectedAudio > -1">
+      <likert-scale :scale-size="7" v-model="likertCertainty" />
+    </section>
     <PageNav :disabled-button="likertCertainty == -1" @clicked="nextQuestion"
       >Próxima Pergunta</PageNav
     >
@@ -46,6 +48,7 @@ import { testData } from "@/data.js";
 import PageNav from "@/components/PageNav.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
 import AudioComponent from "@/components/AudioComponent.vue";
+import LikertScale from "@/components/LikertScale.vue";
 
 export default {
   name: "TestPerSe",
@@ -53,7 +56,8 @@ export default {
     return {
       currentQuestion: 0,
       audioPlays: [0, 0],
-      selectedAudio: null,
+      selectedAudio: -1,
+      likertCertainty: -1,
       randomBool: !Math.round(Math.random()),
       testData: testData
     };
@@ -71,7 +75,7 @@ export default {
       this.currentQuestion++;
     }
   },
-  components: { PageNav, ProgressBar, AudioComponent }
+  components: { PageNav, ProgressBar, AudioComponent, LikertScale }
 };
 </script>
 
