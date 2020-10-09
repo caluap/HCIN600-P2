@@ -3,10 +3,33 @@
     <LongText>
       <h1>Antes de começar...</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio, nemo.
-        Odit nobis culpa numquam amet exercitationem aliquam suscipit officia
-        voluptate architecto. Iste similique dolor quidem sit ex vero quae
-        dicta?
+        Esta é uma pesquisa homologada pelo
+        <a
+          href="https://prp-web.cenapad.unicamp.br/pt-br/cep-comite-de-etica-em-pesquisa"
+          target="_blank"
+          >Comitê de Ética em Pesquisa</a
+        >
+        (CEP) da Universidade Estadual de Campinas (Unicamp). O número de seu
+        Certificado de Apresentação para Apreciação Ética (CAAE) é
+        09321819.1.0000.5404.
+      </p>
+      <p>
+        Ao participar desta avaliação, você deve declarar estar de acordo com
+        nossos termos de privacidade. Você pode encontrá-los na íntegra
+        <a href="/tcle.pdf" target="_blank"> <strong>aqui</strong> </a>.
+      </p>
+      <p>
+        Importante ressaltar um ponto: se a qualquer momento e por qualquer
+        razão você quiser abandonar o teste fique a vontade — não estará
+        causando nenhum mal ao teste.
+      </p>
+      <p>
+        <input type="checkbox" id="cbx" />
+        <label class="lbl" for="cbx">
+          <span></span>Declaro ter recebido esclarecimentos sobre a natureza da
+          pesquisa, seus objetivos, métodos, benefícios previstos e seus
+          potenciais riscos e, sob esses termos, aceito participar.
+        </label>
       </p>
     </LongText>
     <PageNav href="um-pouco-sobre-voce">Um pouco sobre você</PageNav>
@@ -29,3 +52,32 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/css/_variables.scss";
+
+.lbl {
+  span {
+    display: inline-block;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 2px;
+    position: relative;
+    top: 1px;
+    margin-right: 0.5rem;
+    border: 1px solid $accent;
+    background: white;
+  }
+  cursor: pointer;
+}
+
+#cbx {
+  display: none;
+}
+
+#cbx:checked ~ .lbl {
+  span {
+    background: $accent;
+  }
+}
+</style>
