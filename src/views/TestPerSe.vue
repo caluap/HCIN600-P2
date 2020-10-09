@@ -1,54 +1,56 @@
 <template>
-  <div
-    id="test-per-se"
-    v-if="ready && collectedData && collectedData.general_data !== undefined"
-  >
+  <div>
     <ProgressBar
       id="test-progress"
       :max="testData.questions.length"
       :value="currentQuestion"
     ></ProgressBar>
-    <section id="smcc">
-      <template v-if="collectedData.general_data.animated_smccs_test">
-        <youtube
-          :video-id="testData.questions[currentQuestion].videoId"
-          @ended="videoPlays++"
-        />
-      </template>
-      <template v-else>
-        <img :src="testData.questions[currentQuestion].imageUrl" alt="" />
-      </template>
-    </section>
-    <section id="audio-files" :class="{ 'invert-order': randomBool }">
-      <audio-component
-        @played="incAudioPlays(0)"
-        v-model="selectedAudio"
-        :audio-index="0"
-        :can-select="audioPlays[0] && audioPlays[1]"
-        :audio-file="testData.questions[currentQuestion].correctAudioUrl"
-      />
-      <audio-component
-        @played="incAudioPlays(1)"
-        v-model="selectedAudio"
-        :audio-index="1"
-        :can-select="audioPlays[0] && audioPlays[1]"
-        :audio-file="testData.questions[currentQuestion].incorrectAudioUrl"
-      />
-    </section>
-    <section id="likert-scale" v-if="selectedAudio > -1">
-      <likert-scale
-        :scale-size="5"
-        v-model="likertCertainty"
-        min-text="Quase não existe relação entre texto e som."
-        max-text="Existe uma clara relação entre texto e som."
-      />
-    </section>
-    <PageNav :disabled-button="likertCertainty == -1" @clicked="nextQuestion"
-      >Próxima Pergunta</PageNav
+    <div
+      id="test-per-se"
+      v-if="ready && collectedData && collectedData.general_data !== undefined"
     >
-  </div>
-  <div v-else>
-    Carregando
+      <section id="smcc">
+        <template v-if="collectedData.general_data.animated_smccs_test">
+          <youtube
+            :video-id="testData.questions[currentQuestion].videoId"
+            @ended="videoPlays++"
+          />
+        </template>
+        <template v-else>
+          <img :src="testData.questions[currentQuestion].imageUrl" alt="" />
+        </template>
+      </section>
+      <section id="audio-files" :class="{ 'invert-order': randomBool }">
+        <audio-component
+          @played="incAudioPlays(0)"
+          v-model="selectedAudio"
+          :audio-index="0"
+          :can-select="audioPlays[0] && audioPlays[1]"
+          :audio-file="testData.questions[currentQuestion].correctAudioUrl"
+        />
+        <audio-component
+          @played="incAudioPlays(1)"
+          v-model="selectedAudio"
+          :audio-index="1"
+          :can-select="audioPlays[0] && audioPlays[1]"
+          :audio-file="testData.questions[currentQuestion].incorrectAudioUrl"
+        />
+      </section>
+      <section id="likert-scale" v-if="selectedAudio > -1">
+        <likert-scale
+          :scale-size="5"
+          v-model="likertCertainty"
+          min-text="Quase não existe relação entre texto e som."
+          max-text="Existe uma clara relação entre texto e som."
+        />
+      </section>
+      <PageNav :disabled-button="likertCertainty == -1" @clicked="nextQuestion"
+        >Próxima Pergunta</PageNav
+      >
+    </div>
+    <div v-else>
+      Carregando
+    </div>
   </div>
 </template>
 
