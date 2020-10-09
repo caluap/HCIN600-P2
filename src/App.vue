@@ -54,7 +54,10 @@ export default {
 @import "@/assets/css/_variables.scss";
 #app {
   margin: 0 auto;
-  max-width: 960px;
+  &,
+  * {
+    max-width: 720px; // there can be no yuge divs!
+  }
   width: 100%;
 
   display: flex;
