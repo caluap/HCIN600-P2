@@ -1,6 +1,14 @@
 <template>
-  <div id="app" :class="{ loading: !ready }">
-    <router-view />
+  <div id="app">
+    <div :class="{ loading: !ready }" id="router-view-container">
+      <router-view />
+    </div>
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   </div>
 </template>
 
@@ -43,17 +51,62 @@ export default {
 </script>
 
 <style lang="scss">
-#nav {
+@import "@/assets/css/_variables.scss";
+#app {
   margin: 0 auto;
-  max-width: 1280px;
+  max-width: 960px;
   width: 100%;
 
   display: flex;
-  align-items: center;
+  // align-items: center;
   justify-content: center;
-
+}
+#router-view-container {
   &.loading {
-    // transition: all 1s ease;
+    filter: blur(10px);
+    transition: all 1s ease;
+    & + .lds-ring {
+      display: inline-block;
+    }
+  }
+}
+
+.lds-ring {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid $accent;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: $accent transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>

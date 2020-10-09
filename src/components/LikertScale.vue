@@ -47,9 +47,9 @@ export default {
   computed: {
     gridCols: function() {
       let s = "grid-template-columns: ";
-      if (this.minText !== "") s += "3fr ";
+      if (this.minText !== "") s += "2fr ";
       s += `repeat(${this.scaleSize}, 1fr)`;
-      if (this.maxText !== "") s += " 3fr;";
+      if (this.maxText !== "") s += " 2fr;";
       return s;
     }
   },
@@ -76,7 +76,7 @@ export default {
     &:nth-child(odd) {
     }
     &:not(.scale-item) {
-      @include fs(-1);
+      @include fs(-2);
     }
     &.scale-item {
       &,
