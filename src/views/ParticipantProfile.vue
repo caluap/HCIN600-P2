@@ -1,12 +1,15 @@
 <template>
   <div>
     <LongText>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum culpa
-      quisquam vitae voluptatem provident ex suscipit eum consequatur tempore
-      omnis, accusamus consectetur ut inventore soluta. Omnis, quod. Laudantium,
-      fuga non?
+      <h1>Nos fale um pouco sobre você</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum culpa
+        quisquam vitae voluptatem provident ex suscipit eum consequatur tempore
+        omnis, accusamus consectetur ut inventore soluta. Omnis, quod.
+        Laudantium, fuga non?
+      </p>
     </LongText>
-    <PageNav href="o-teste-em-si">E agora, o teste</PageNav>
+    <PageNav href="o-teste-em-si">Começar o teste</PageNav>
   </div>
 </template>
 
