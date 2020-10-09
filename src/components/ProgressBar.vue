@@ -14,6 +14,7 @@ export default {
 
 progress {
   display: none;
+  max-width: unset;
   &[value] {
     display: block;
     position: fixed;

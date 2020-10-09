@@ -55,7 +55,9 @@ export default {
 #app {
   margin: 0 auto;
   &,
-  * {
+  div,
+  section,
+  article {
     max-width: 720px; // there can be no yuge divs!
   }
   width: 100%;
