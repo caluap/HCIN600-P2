@@ -36,7 +36,12 @@
       />
     </section>
     <section id="likert-scale" v-if="selectedAudio > -1">
-      <likert-scale :scale-size="5" v-model="likertCertainty" />
+      <likert-scale
+        :scale-size="5"
+        v-model="likertCertainty"
+        min-text="Quase não existe relação entre texto e som."
+        max-text="Existe uma clara relação entre texto e som."
+      />
     </section>
     <PageNav :disabled-button="likertCertainty == -1" @clicked="nextQuestion"
       >Próxima Pergunta</PageNav
