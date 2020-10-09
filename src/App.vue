@@ -61,16 +61,15 @@ export default {
   width: 100%;
 
   display: flex;
-  // align-items: center;
   justify-content: center;
 }
 #router-view-container {
+  transition: all ease 0.5s;
   &.loading {
-    filter: blur(10px);
     & > * {
       pointer-events: none;
     }
-    transition: all 1s ease;
+    filter: blur(10px);
     & + .lds-ring {
       display: inline-block;
     }
