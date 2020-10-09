@@ -24,7 +24,7 @@
         causando nenhum mal ao teste.
       </p>
       <p>
-        <input type="checkbox" id="cbx" />
+        <input type="checkbox" id="cbx" v-model="acceptedTheTerms" />
         <label class="lbl" for="cbx">
           <span></span>Declaro ter recebido esclarecimentos sobre a natureza da
           pesquisa, seus objetivos, métodos, benefícios previstos e seus
@@ -32,7 +32,9 @@
         </label>
       </p>
     </LongText>
-    <PageNav href="um-pouco-sobre-voce">Um pouco sobre você</PageNav>
+    <PageNav :disabled-button="!acceptedTheTerms" href="um-pouco-sobre-voce"
+      >Um pouco sobre você</PageNav
+    >
   </div>
 </template>
 
@@ -44,6 +46,11 @@ import { mapMutations } from "vuex";
 export default {
   name: "FreeInformedConsentTerm",
   components: { LongText, PageNav },
+  data() {
+    return {
+      acceptedTheTerms: false
+    };
+  },
   methods: {
     ...mapMutations(["incStep"])
   },
@@ -57,6 +64,7 @@ export default {
 @import "@/assets/css/_variables.scss";
 
 .lbl {
+  user-select: none;
   span {
     display: inline-block;
     width: 0.8rem;
