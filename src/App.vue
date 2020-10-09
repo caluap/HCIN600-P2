@@ -64,6 +64,9 @@ export default {
 #router-view-container {
   &.loading {
     filter: blur(10px);
+    & > * {
+      pointer-events: none;
+    }
     transition: all 1s ease;
     & + .lds-ring {
       display: inline-block;
