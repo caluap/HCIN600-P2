@@ -16,9 +16,16 @@
 <script>
 import LongText from "@/components/LongText.vue";
 import PageNav from "@/components/PageNav.vue";
+import { mapMutations } from "vuex";
 
 export default {
   name: "HowTheTestWorks",
-  components: { LongText, PageNav }
+  components: { LongText, PageNav },
+  methods: {
+    ...mapMutations(["incStep"])
+  },
+  created() {
+    this.incStep(1);
+  }
 };
 </script>

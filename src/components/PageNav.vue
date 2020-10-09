@@ -18,6 +18,11 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  methods: {
+    butClick: function() {
+      this.$emit("clicked");
+    }
   }
 };
 </script>

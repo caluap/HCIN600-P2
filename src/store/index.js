@@ -13,6 +13,7 @@ export default new Vuex.Store({
     offlineMode: false,
     ready: false,
     fetches: 0,
+    currentStep: 0,
     docRef: null,
   },
   getters: {},
@@ -33,6 +34,13 @@ export default new Vuex.Store({
     startedFetch(state) {
       state.fetches++;
       state.ready = false;
+    },
+    incStep(state, step = null) {
+      if (step !== null) {
+        state.currentStep = step;
+      } else {
+        state.currentStep++;
+      }
     },
   },
   actions: {

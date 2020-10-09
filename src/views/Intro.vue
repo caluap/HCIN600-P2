@@ -17,9 +17,16 @@
 // @ is an alias to /src
 import LongText from "@/components/LongText.vue";
 import PageNav from "@/components/PageNav.vue";
+import { mapMutations } from "vuex";
 
 export default {
   name: "Intro",
+  methods: {
+    ...mapMutations(["incStep"])
+  },
+  created() {
+    this.incStep(0);
+  },
   components: { LongText, PageNav }
 };
 </script>

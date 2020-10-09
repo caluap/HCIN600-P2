@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <ProgressBar
+      id="test-progress"
+      :max="nSteps"
+      :value="currentStep"
+    ></ProgressBar>
     <div :class="{ loading: !ready }" id="router-view-container">
       <router-view />
     </div>
@@ -13,15 +18,21 @@
 </template>
 
 <script>
+import { testData } from "@/data.js";
 import { mapState, mapActions } from "vuex";
+import ProgressBar from "@/components/ProgressBar.vue";
 
 export default {
   name: "app",
+  components: { ProgressBar },
   data() {
     return {};
   },
   computed: {
-    ...mapState(["userId", "collectedData", "ready"])
+    ...mapState(["userId", "collectedData", "ready", "currentStep"]),
+    nSteps: function() {
+      return testData.questions.length + 4;
+    }
   },
   methods: {
     ...mapActions(["pushAnswer"]),

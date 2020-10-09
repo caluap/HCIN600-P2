@@ -1,64 +1,56 @@
 <template>
-  <div>
-    <ProgressBar
-      id="test-progress"
-      :max="testData.questions.length"
-      :value="currentQuestion"
-    ></ProgressBar>
-    <div
-      id="test-per-se"
-      v-if="ready && collectedData && collectedData.general_data !== undefined"
+  <div
+    id="test-per-se"
+    v-if="ready && collectedData && collectedData.general_data !== undefined"
+  >
+    <section id="smcc">
+      <template v-if="collectedData.general_data.animated_smccs_test">
+        <youtube
+          :video-id="testData.questions[currentQuestion].videoId"
+          @ended="videoPlays++"
+        />
+      </template>
+      <template v-else>
+        <img :src="testData.questions[currentQuestion].imageUrl" alt="" />
+      </template>
+    </section>
+    <section id="audio-files" :class="{ 'invert-order': randomBool }">
+      <audio-component
+        @played="incAudioPlays(0)"
+        v-model="selectedAudio"
+        :audio-index="0"
+        :can-select="audioPlays[0] && audioPlays[1]"
+        :audio-file="testData.questions[currentQuestion].correctAudioUrl"
+      />
+      <audio-component
+        @played="incAudioPlays(1)"
+        v-model="selectedAudio"
+        :audio-index="1"
+        :can-select="audioPlays[0] && audioPlays[1]"
+        :audio-file="testData.questions[currentQuestion].incorrectAudioUrl"
+      />
+    </section>
+    <section id="likert-scale" v-if="selectedAudio > -1">
+      <likert-scale
+        :scale-size="5"
+        v-model="likertCertainty"
+        min-text="Quase não existe relação entre texto e som."
+        max-text="Existe uma clara relação entre texto e som."
+      />
+    </section>
+    <PageNav :disabled-button="likertCertainty == -1" @clicked="nextQuestion"
+      >Próxima Pergunta</PageNav
     >
-      <section id="smcc">
-        <template v-if="collectedData.general_data.animated_smccs_test">
-          <youtube
-            :video-id="testData.questions[currentQuestion].videoId"
-            @ended="videoPlays++"
-          />
-        </template>
-        <template v-else>
-          <img :src="testData.questions[currentQuestion].imageUrl" alt="" />
-        </template>
-      </section>
-      <section id="audio-files" :class="{ 'invert-order': randomBool }">
-        <audio-component
-          @played="incAudioPlays(0)"
-          v-model="selectedAudio"
-          :audio-index="0"
-          :can-select="audioPlays[0] && audioPlays[1]"
-          :audio-file="testData.questions[currentQuestion].correctAudioUrl"
-        />
-        <audio-component
-          @played="incAudioPlays(1)"
-          v-model="selectedAudio"
-          :audio-index="1"
-          :can-select="audioPlays[0] && audioPlays[1]"
-          :audio-file="testData.questions[currentQuestion].incorrectAudioUrl"
-        />
-      </section>
-      <section id="likert-scale" v-if="selectedAudio > -1">
-        <likert-scale
-          :scale-size="5"
-          v-model="likertCertainty"
-          min-text="Quase não existe relação entre texto e som."
-          max-text="Existe uma clara relação entre texto e som."
-        />
-      </section>
-      <PageNav :disabled-button="likertCertainty == -1" @clicked="nextQuestion"
-        >Próxima Pergunta</PageNav
-      >
-    </div>
-    <div v-else>
-      Carregando
-    </div>
+  </div>
+  <div v-else>
+    Carregando
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 import { testData } from "@/data.js";
 import PageNav from "@/components/PageNav.vue";
-import ProgressBar from "@/components/ProgressBar.vue";
 import AudioComponent from "@/components/AudioComponent.vue";
 import LikertScale from "@/components/LikertScale.vue";
 
@@ -79,8 +71,12 @@ export default {
   computed: {
     ...mapState(["collectedData", "ready"])
   },
+  created() {
+    this.incStep(4);
+  },
   methods: {
     ...mapActions(["pushAnswer"]),
+    ...mapMutations(["incStep"]),
     incAudioPlays: function(i) {
       this.$set(this.audioPlays, i, this.audioPlays[i] + 1);
     },
@@ -117,10 +113,12 @@ export default {
       this.selectedAudio = -1;
       this.likertCertainty = -1;
       this.randomBool = !Math.round(Math.random());
+
       this.currentQuestion++;
+      this.incStep();
     }
   },
-  components: { PageNav, ProgressBar, AudioComponent, LikertScale }
+  components: { PageNav, AudioComponent, LikertScale }
 };
 </script>
 
