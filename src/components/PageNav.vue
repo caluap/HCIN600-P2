@@ -37,6 +37,7 @@ a {
   display: block;
   background: $accent;
   color: white;
+  border: 3px solid transparent;
   padding: 0.9rem 2rem 1rem;
   text-decoration: none;
   border-radius: 0.5rem;
@@ -53,7 +54,9 @@ a {
   }
   &.disabled {
     cursor: not-allowed;
-    opacity: 0.4;
+    background-color: transparent;
+    color: #ccc;
+    border-color: #bbb;
   }
 }
 </style>
