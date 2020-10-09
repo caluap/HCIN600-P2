@@ -27,7 +27,9 @@ export default {
 @import "@/assets/css/_mixins.scss";
 
 a {
-  display: inline-block;
+  margin-top: 4rem;
+  float: right;
+  display: block;
   background: $accent;
   color: white;
   padding: 0.9rem 2rem 1rem;
