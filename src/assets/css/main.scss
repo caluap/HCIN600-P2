@@ -32,3 +32,17 @@ h1 {
   margin-bottom: 2rem;
   color: $accent;
 }
+
+h2 {
+  &:first-child {
+    margin-top: 0;
+  }
+  @include fs(0);
+  font-weight: 750;
+  margin: 2rem 0 0.25rem 0;
+  transition: all 0.75s ease;
+  &.done {
+    font-weight: 500;
+    opacity: 0.5;
+  }
+}

@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ selected: audioIndex == selectedAudio }">
+  <div :class="{ selected: audioIndex == selectedAudio, disabled: disabled }">
     <audio
       ref="audio"
       controls
@@ -29,7 +29,13 @@
 <script>
 export default {
   name: "AudioComponent",
-  props: ["audioFile", "canSelect", "selectedAudio", "audioIndex"],
+  props: {
+    audioFile: String,
+    canSelect: Boolean,
+    selectedAudio: Number,
+    audioIndex: Number,
+    disabled: { type: Boolean, default: false }
+  },
   model: {
     prop: "selectedAudio",
     event: "change"
@@ -78,11 +84,17 @@ div {
   padding: 0.5rem 0.6rem;
   background-color: transparent;
   border-radius: 0;
-  transition: 0.5s ease background-color, 0.6s ease border-radius;
+  transition: 0.5s ease background-color, 0.6s ease border-radius,
+    0.5s ease opacity;
   &.selected {
     background: #fff;
     border-radius: 0.666rem;
   }
+}
+
+.disabled {
+  opacity: 0.25;
+  pointer-events: none;
 }
 
 .audio-control {

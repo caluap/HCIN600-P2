@@ -15,6 +15,7 @@ export default {
 
 .long-text-self {
   min-height: 66vh;
+  margin-bottom: 4rem;
 }
 p + p {
   margin-top: 1.35rem;

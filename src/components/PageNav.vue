@@ -34,7 +34,6 @@ export default {
 @import "@/assets/css/_mixins.scss";
 
 a {
-  margin-top: 4rem;
   float: right;
   display: block;
   background: $accent;

@@ -1,9 +1,14 @@
 <template>
   <div class="likert-container" :style="gridCols">
-    <div v-if="minText != ''">
+    <div :class="{ disabled: disabled }" v-if="minText != ''">
       {{ minText }}
     </div>
-    <div v-for="index in scaleSize" class="scale-item" :key="`d-${index}`">
+    <div
+      :class="{ disabled: disabled }"
+      v-for="index in scaleSize"
+      class="scale-item"
+      :key="`d-${index}`"
+    >
       <label :for="`r-${index}`" :key="`l-${index}`"
         ><input
           type="radio"
@@ -17,7 +22,7 @@
         {{ index }}</label
       >
     </div>
-    <div v-if="maxText != ''">
+    <div :class="{ disabled: disabled }" v-if="maxText != ''">
       {{ maxText }}
     </div>
   </div>
@@ -42,6 +47,10 @@ export default {
     maxText: {
       type: String,
       default: ""
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -99,5 +108,10 @@ label {
   input {
     margin: 0 0.25rem 0 0;
   }
+}
+
+.disabled {
+  opacity: 0.25;
+  pointer-events: none;
 }
 </style>

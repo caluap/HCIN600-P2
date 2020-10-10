@@ -3,6 +3,12 @@
     id="test-per-se"
     v-if="ready && collectedData && collectedData.general_data !== undefined"
   >
+    <h2 :class="{ done: videoPlays > 0 }">
+      <template v-if="collectedData.general_data.animated_smccs_test">
+        Assista ao vídeo abaixo:</template
+      >
+      <template v-else>Observe a imagem abaixo:</template>
+    </h2>
     <section id="smcc">
       <template v-if="collectedData.general_data.animated_smccs_test">
         <youtube
@@ -14,26 +20,41 @@
         <img :src="testData.questions[currentQuestion].imageUrl" alt="" />
       </template>
     </section>
+    <h2 :class="{ done: selectedAudio != -1, waiting: videoPlays == 0 }">
+      <template v-if="videoPlays > 0">
+        Agora, ouça os dois arquivos de áudio abaixo:</template
+      >
+      <template v-else>&shy;</template>
+    </h2>
     <section id="audio-files" :class="{ 'invert-order': randomBool }">
       <audio-component
         @played="incAudioPlays(0)"
         v-model="selectedAudio"
+        :disabled="videoPlays == 0"
         :audio-index="0"
-        :can-select="audioPlays[0] && audioPlays[1]"
+        :can-select="!!audioPlays[0] && !!audioPlays[1]"
         :audio-file="testData.questions[currentQuestion].correctAudioUrl"
       />
       <audio-component
         @played="incAudioPlays(1)"
         v-model="selectedAudio"
+        :disabled="videoPlays == 0"
         :audio-index="1"
-        :can-select="audioPlays[0] && audioPlays[1]"
+        :can-select="!!audioPlays[0] && !!audioPlays[1]"
         :audio-file="testData.questions[currentQuestion].incorrectAudioUrl"
       />
     </section>
-    <section id="likert-scale" v-if="selectedAudio > -1">
+    <h2 :class="{ waiting: selectedAudio == -1, done: likertCertainty != -1 }">
+      <template v-if="selectedAudio != -1">
+        E, enfim, nos diga quão forte é a relação entre texto e som.</template
+      >
+      <template v-else>&shy;</template>
+    </h2>
+    <section id="likert-scale">
       <likert-scale
         :scale-size="5"
         v-model="likertCertainty"
+        :disabled="selectedAudio == -1"
         min-text="Quase não existe relação entre texto e som."
         max-text="Existe uma clara relação entre texto e som."
       />
@@ -41,9 +62,6 @@
     <PageNav :disabled-button="likertCertainty == -1" @clicked="nextQuestion"
       >Próxima Pergunta</PageNav
     >
-  </div>
-  <div v-else>
-    Carregando
   </div>
 </template>
 
@@ -123,10 +141,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/_mixins.scss";
+
+#test-per-se {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 1rem;
+  counter-reset: instruction;
+}
+
+#smcc {
+  width: 100%;
+  padding: 0.5rem 0.25rem;
+  background-color: #000;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
 #audio-files {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 0.5rem;
+  grid-gap: 4rem;
   &.invert-order {
     :nth-child(1) {
       grid-column: 2;
@@ -138,6 +175,22 @@ export default {
     }
   }
   &:not(.invert-order) {
+  }
+}
+
+#likert-scale {
+  margin-bottom: 4rem;
+}
+
+h2 {
+  &:before {
+    counter-increment: instruction;
+    font-weight: 500;
+    @include fs(-1);
+    content: counter(instruction) ".";
+  }
+  &.waiting:before {
+    opacity: 0;
   }
 }
 </style>
