@@ -86,9 +86,10 @@ div {
   border-radius: 0;
   transition: 0.5s ease background-color, 0.6s ease border-radius,
     0.5s ease opacity;
+  border-radius: 0.666rem;
+  background-color: #ccc;
   &.selected {
     background: #fff;
-    border-radius: 0.666rem;
   }
 }
 

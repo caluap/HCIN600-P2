@@ -3,30 +3,31 @@
     id="test-per-se"
     v-if="ready && collectedData && collectedData.general_data !== undefined"
   >
-    <h2 :class="{ done: videoPlays > 0 }">
-      <template v-if="collectedData.general_data.animated_smccs_test">
-        Assista ao vídeo abaixo:</template
-      >
-      <template v-else>Observe a imagem abaixo:</template>
-    </h2>
     <section id="smcc">
-      <template v-if="collectedData.general_data.animated_smccs_test">
+      <h2 :class="{ done: videoPlays > 0 }">
+        <template v-if="collectedData.general_data.animated_smccs_test">
+          Assista ao vídeo abaixo:</template
+        >
+        <template v-else>Observe a imagem abaixo:</template>
+      </h2>
+      <div v-if="collectedData.general_data.animated_smccs_test">
         <youtube
           :video-id="testData.questions[currentQuestion].videoId"
           @ended="videoPlays++"
         />
-      </template>
-      <template v-else>
+      </div>
+      <div v-else>
         <img :src="testData.questions[currentQuestion].imageUrl" alt="" />
-      </template>
+      </div>
     </section>
-    <h2 :class="{ done: selectedAudio != -1, waiting: videoPlays == 0 }">
-      <template v-if="videoPlays > 0">
-        Agora, ouça os dois arquivos de áudio abaixo:</template
-      >
-      <template v-else>&shy;</template>
-    </h2>
-    <section id="audio-files" :class="{ 'invert-order': randomBool }">
+    <section
+      id="audio-files"
+      v-if="videoPlays > 0"
+      :class="{ 'invert-order': randomBool }"
+    >
+      <h2 :class="{ done: selectedAudio != -1 }">
+        Agora, ouça os dois arquivos de áudio abaixo:
+      </h2>
       <audio-component
         @played="incAudioPlays(0)"
         v-model="selectedAudio"
@@ -44,13 +45,11 @@
         :audio-file="testData.questions[currentQuestion].incorrectAudioUrl"
       />
     </section>
-    <h2 :class="{ waiting: selectedAudio == -1, done: likertCertainty != -1 }">
-      <template v-if="selectedAudio != -1">
-        E, enfim, nos diga quão forte é a relação entre texto e som.</template
-      >
-      <template v-else>&shy;</template>
-    </h2>
-    <section id="likert-scale">
+    <section id="likert-scale" v-if="selectedAudio != -1">
+      <h2 :class="{ done: likertCertainty != -1 }">
+        E, enfim, nos diga quão forte é a relação entre texto em (1) e som
+        escolhido em (2):
+      </h2>
       <likert-scale
         :scale-size="5"
         v-model="likertCertainty"
@@ -146,40 +145,53 @@ export default {
 #test-per-se {
   display: grid;
   grid-template-columns: 1fr;
-  grid-row-gap: 1rem;
+  grid-row-gap: 4rem;
   counter-reset: instruction;
 }
 
 #smcc {
   width: 100%;
-  padding: 0.5rem 0.25rem;
-  background-color: #000;
   display: grid;
-  align-items: center;
   justify-content: center;
+  & > div {
+    min-width: min(720px, 100vw - 2rem);
+    margin-top: 1rem;
+    padding: 0.5rem 0.25rem;
+    background-color: #000;
+    display: grid;
+    justify-content: center;
+  }
 }
 
 #audio-files {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 4rem;
+  grid-row-gap: 1rem;
+  grid-column-gap: 2rem;
   &.invert-order {
-    :nth-child(1) {
+    & > :nth-child(2) {
       grid-column: 2;
-      grid-row: 1;
+      grid-row: 2;
     }
-    :nth-child(2) {
+    & > :nth-child(3) {
       grid-column: 1;
-      grid-row: 1;
+      grid-row: 2;
     }
   }
   &:not(.invert-order) {
   }
+
+  h2 {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+  }
 }
 
 #likert-scale {
-  margin-bottom: 4rem;
+  h2 {
+    margin-bottom: 1rem;
+  }
 }
 
 h2 {
