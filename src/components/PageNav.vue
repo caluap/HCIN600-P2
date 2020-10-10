@@ -1,12 +1,14 @@
 <template>
-  <a
-    @click="$emit(`clicked`)"
-    :class="{ disabled: disabledButton }"
-    :is="!!href ? `router-link` : `a`"
-    :to="!!href ? href : false"
-  >
-    <slot></slot>
-  </a>
+  <div @click="butClick()">
+    <!-- @click on container div solution from https://forum.vuejs.org/t/make-native-event-modifier-conditional/82730/6 -->
+    <a
+      :class="{ disabled: disabledButton }"
+      :is="!!href ? `router-link` : `a`"
+      :to="!!href ? href : false"
+    >
+      <slot></slot>
+    </a>
+  </div>
 </template>
 
 <script>
