@@ -4,6 +4,7 @@
     :class="{ 'animated-test': collectedData.general_data.animated_smccs_test }"
     v-if="ready && collectedData && collectedData.general_data !== undefined"
   >
+    <!-- {{ testData.questions[currentQuestion].videoId }} -->
     <section id="smcc">
       <h2 :class="{ done: videoPlays > 0, 'current-step': videoPlays == 0 }">
         <template v-if="collectedData.general_data.animated_smccs_test">
@@ -77,7 +78,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
 import { testData } from "@/data.js";
 import PageNav from "@/components/PageNav.vue";
 import AudioComponent from "@/components/AudioComponent.vue";
@@ -88,7 +89,6 @@ export default {
   data() {
     return {
       startTime: new Date(),
-      currentQuestion: 0,
       videoPlays: 0,
       audioPlays: [0, 0],
       selectedAudio: -1,
@@ -98,7 +98,14 @@ export default {
     };
   },
   computed: {
-    ...mapState(["collectedData", "ready"])
+    ...mapState(["collectedData", "ready"]),
+    ...mapGetters(["getAnswerCount"]),
+    currentQuestion: function() {
+      if (this.getAnswerCount !== null) {
+        return this.getAnswerCount;
+      }
+      return 0;
+    }
   },
   watch: {
     videoPlays: function(newValue, oldValue) {
@@ -117,7 +124,7 @@ export default {
     }
   },
   created() {
-    this.incStep(4);
+    this.incStep(4 + this.currentQuestion);
   },
   methods: {
     ...mapActions(["pushAnswer"]),
@@ -158,8 +165,6 @@ export default {
       this.selectedAudio = -1;
       this.likertCertainty = -1;
       this.randomBool = !Math.round(Math.random());
-
-      this.currentQuestion++;
       this.incStep();
     }
   },

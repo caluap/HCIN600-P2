@@ -22,6 +22,12 @@ export default new Vuex.Store({
         return state.collectedData.general_data.about_the_participant;
       }
       return null;
+    },
+    getAnswerCount: (state) => {
+      if (state.collectedData) {
+        return state.collectedData.answers.length;
+      }
+      return null;
     }
   },
   mutations: {
