@@ -120,7 +120,7 @@ export default {
           return "waiting";
         }
         if (this.selectedAudio != -1 && this.likertCertainty == -1) {
-          return "current";
+          return "current-step";
         }
         return "done";
       } else {
