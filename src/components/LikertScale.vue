@@ -1,29 +1,37 @@
 <template>
-  <div class="likert-container" :style="gridCols">
-    <div :class="{ disabled: disabled }" v-if="minText != ''">
-      {{ minText }}
-    </div>
-    <div
-      :class="{ disabled: disabled }"
-      v-for="index in scaleSize"
-      class="scale-item"
-      :key="`d-${index}`"
-    >
-      <label :for="`r-${index}`" :key="`l-${index}`"
-        ><input
-          type="radio"
-          :name="`likert-${_uid}`"
-          :key="`r-${index}`"
-          :id="`r-${index}`"
-          :value="index"
-          @change="$emit('change', index)"
-          :v-model="likertChoice"
-        />
-        {{ index }}</label
+  <div>
+    <component :is="'style'">
+      @media (min-width: 720px) { div#likert-{{ _uid }} {
+      {{ gridColsDesktop }}
+      }} @media (max-width: 720px) { div#likert-{{ _uid }} {
+      grid-template-columns: 1fr; } }
+    </component>
+    <div :id="`likert-${_uid}`" class="likert-container">
+      <div :class="{ disabled: disabled }" v-if="minText != ''">
+        {{ minText }}
+      </div>
+      <div
+        :class="{ disabled: disabled }"
+        v-for="index in scaleSize"
+        class="scale-item"
+        :key="`d-${index}`"
       >
-    </div>
-    <div :class="{ disabled: disabled }" v-if="maxText != ''">
-      {{ maxText }}
+        <label :for="`r-${index}`" :key="`l-${index}`"
+          ><input
+            type="radio"
+            :name="`likert-${_uid}`"
+            :key="`r-${index}`"
+            :id="`r-${index}`"
+            :value="index"
+            @change="$emit('change', index)"
+            :v-model="likertChoice"
+          />
+          {{ index }}</label
+        >
+      </div>
+      <div :class="{ disabled: disabled }" v-if="maxText != ''">
+        {{ maxText }}
+      </div>
     </div>
   </div>
 </template>
@@ -54,7 +62,7 @@ export default {
     }
   },
   computed: {
-    gridCols: function() {
+    gridColsDesktop: function() {
       let s = "grid-template-columns: ";
       if (this.minText !== "") s += "2fr ";
       s += `repeat(${this.scaleSize}, 1fr)`;
@@ -85,12 +93,19 @@ export default {
     &:nth-child(odd) {
     }
     &:not(.scale-item) {
-      @include fs(-2);
+      @media (min-width: 720px) {
+        @include fs(-1);
+      }
     }
     &.scale-item {
       &,
       & + :not(.scale-item) {
-        border-left: 1px solid #999;
+        @media (min-width: 720px) {
+          border-left: 1px solid #999;
+        }
+        @media (max-width: 720px) {
+          border-top: 1px solid #999;
+        }
       }
       display: flex;
       align-items: center;
