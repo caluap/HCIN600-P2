@@ -1,6 +1,7 @@
 <template>
   <div
     id="test-per-se"
+    :class="{ 'animated-test': collectedData.general_data.animated_smccs_test }"
     v-if="ready && collectedData && collectedData.general_data !== undefined"
   >
     <section id="smcc">
@@ -22,7 +23,7 @@
     </section>
     <section
       id="audio-files"
-      v-if="videoPlays > 0"
+      v-show="videoPlays > 0"
       :class="{ 'invert-order': randomBool }"
     >
       <h2
@@ -51,7 +52,7 @@
         :audio-file="testData.questions[currentQuestion].incorrectAudioUrl"
       />
     </section>
-    <section id="likert-scale" v-if="selectedAudio != -1">
+    <section id="likert-scale" v-show="selectedAudio != -1">
       <h2
         :class="{
           done: likertCertainty != -1,
@@ -98,6 +99,22 @@ export default {
   },
   computed: {
     ...mapState(["collectedData", "ready"])
+  },
+  watch: {
+    videoPlays: function(newValue, oldValue) {
+      if (oldValue == 0 && newValue == 1) {
+        setTimeout(() => {
+          this.$scrollTo(document.getElementById("audio-files"), 2500);
+        }, 250);
+      }
+    },
+    selectedAudio: function(newValue, oldValue) {
+      if (oldValue == -1 && newValue != -1) {
+        setTimeout(() => {
+          this.$scrollTo(document.getElementById("likert-scale"), 2500);
+        }, 250);
+      }
+    }
   },
   created() {
     this.incStep(4);
@@ -157,7 +174,7 @@ export default {
 #test-per-se {
   display: grid;
   grid-template-columns: 1fr;
-  grid-row-gap: 4rem;
+  grid-row-gap: 8rem;
   counter-reset: instruction;
 }
 
@@ -204,6 +221,7 @@ export default {
   h2 {
     margin-bottom: 1rem;
   }
+  margin-bottom: 2rem;
 }
 
 h2 {
@@ -216,6 +234,9 @@ h2 {
   &.waiting:before {
     opacity: 0;
   }
+}
+
+.animated-test h2 {
   &.current-step {
     position: relative;
     color: $accent;
