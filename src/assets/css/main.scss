@@ -28,6 +28,12 @@ body {
   box-sizing: border-box;
 }
 
+hr {
+  border: none;
+  border: 1px solid $accent;
+  margin: 2rem 0;
+}
+
 h1 {
   @include fs(4);
   font-weight: 550;
