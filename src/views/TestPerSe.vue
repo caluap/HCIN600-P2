@@ -134,38 +134,42 @@ export default {
     },
     nextQuestion: function() {
       // submits current answer to firebase
-      let now = new Date();
-      let url = this.collectedData.general_data.animated_smccs_test
-        ? `https://youtu.be/${
-            this.testData.questions[this.currentQuestion].videoId
-          }`
-        : this.testData.questions[this.currentQuestion].imageUrl;
-      let currentAnswer = {
-        question_index: this.currentQuestion,
-        start_time: this.startTime,
-        end_time: now,
-        duration: (now - this.startTime) / 1000,
-        play_count: this.videoPlays,
-        stanza_code: this.testData.questions[this.currentQuestion].stanzaCode,
-        stanza_url: url,
-        first_option_audio: this.testData.questions[this.currentQuestion]
-          .correctAudioUrl,
-        play_count_first_audio: this.audioPlays[0],
-        second_option_audio: this.testData.questions[this.currentQuestion]
-          .incorrectAudioUrl,
-        play_count_second_audio: this.audioPlays[1],
-        choice_index: this.selectedAudio,
-        likert_certainty: this.likertCertainty,
-        chose_the_right_choice: this.selectedAudio == 0
-      };
-      this.pushAnswer(currentAnswer);
-      this.startTime = now;
-      this.videoPlays = 0;
-      this.audioPlays = [0, 0];
-      this.selectedAudio = -1;
-      this.likertCertainty = -1;
-      this.randomBool = !Math.round(Math.random());
-      this.incStep();
+      if (this.currentQuestion == this.testData.questions.length - 1) {
+        this.$router.push({ name: "LastThoughts" });
+      } else {
+        let now = new Date();
+        let url = this.collectedData.general_data.animated_smccs_test
+          ? `https://youtu.be/${
+              this.testData.questions[this.currentQuestion].videoId
+            }`
+          : this.testData.questions[this.currentQuestion].imageUrl;
+        let currentAnswer = {
+          question_index: this.currentQuestion,
+          start_time: this.startTime,
+          end_time: now,
+          duration: (now - this.startTime) / 1000,
+          play_count: this.videoPlays,
+          stanza_code: this.testData.questions[this.currentQuestion].stanzaCode,
+          stanza_url: url,
+          first_option_audio: this.testData.questions[this.currentQuestion]
+            .correctAudioUrl,
+          play_count_first_audio: this.audioPlays[0],
+          second_option_audio: this.testData.questions[this.currentQuestion]
+            .incorrectAudioUrl,
+          play_count_second_audio: this.audioPlays[1],
+          choice_index: this.selectedAudio,
+          likert_certainty: this.likertCertainty,
+          chose_the_right_choice: this.selectedAudio == 0
+        };
+        this.pushAnswer(currentAnswer);
+        this.startTime = now;
+        this.videoPlays = 0;
+        this.audioPlays = [0, 0];
+        this.selectedAudio = -1;
+        this.likertCertainty = -1;
+        this.randomBool = !Math.round(Math.random());
+        this.incStep();
+      }
     }
   },
   components: { PageNav, AudioComponent, LikertScale }

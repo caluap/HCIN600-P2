@@ -43,6 +43,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "TestPerSe" */ "../views/TestPerSe.vue"),
   },
+  {
+    path: "/uma-ultima-palavra",
+    name: "LastThoughts",
+    component: () =>
+      import(/* webpackChunkName: "LastThoughts" */ "../views/LastThoughts.vue"),
+  },
 ];
 
 const router = new VueRouter({
