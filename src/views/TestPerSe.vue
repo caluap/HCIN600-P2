@@ -5,8 +5,8 @@
     v-if="ready && collectedData && collectedData.general_data !== undefined"
   >
     <!-- {{ testData.questions[currentQuestion].videoId }} -->
-    <section id="smcc">
-      <h2 :class="{ done: videoPlays > 0, 'current-step': videoPlays == 0 }">
+    <section id="smcc" :class="step1Class" v-show="step1Show">
+      <h2>
         <template v-if="collectedData.general_data.animated_smccs_test">
           Assista ao vídeo abaixo:</template
         >
@@ -22,24 +22,14 @@
         <img :src="testData.questions[currentQuestion].imageUrl" alt="" />
       </div>
     </section>
-    <section
-      id="audio-files"
-      v-show="videoPlays > 0"
-      :class="{ 'invert-order': randomBool }"
-    >
-      <h2
-        :class="{
-          done: selectedAudio != -1,
-          'current-step': videoPlays > 0 && selectedAudio == -1
-        }"
-      >
-        Ouça os dois arquivos de áudio abaixo e marque aquele que se relaciona
-        com o texto acima:
+    <section id="audio-files" v-show="step2Show" :class="step2Class">
+      <h2>
+        Ouça os dois arquivos de áudio abaixo e marque aquele que melhor se
+        relaciona com o texto acima:
       </h2>
       <audio-component
         @played="incAudioPlays(0)"
         v-model="selectedAudio"
-        :disabled="videoPlays == 0"
         :audio-index="0"
         :can-select="!!audioPlays[0] && !!audioPlays[1]"
         :audio-file="testData.questions[currentQuestion].correctAudioUrl"
@@ -47,19 +37,13 @@
       <audio-component
         @played="incAudioPlays(1)"
         v-model="selectedAudio"
-        :disabled="videoPlays == 0"
         :audio-index="1"
         :can-select="!!audioPlays[0] && !!audioPlays[1]"
         :audio-file="testData.questions[currentQuestion].incorrectAudioUrl"
       />
     </section>
-    <section id="likert-scale" v-show="selectedAudio != -1">
-      <h2
-        :class="{
-          done: likertCertainty != -1,
-          'current-step': selectedAudio != -1 && likertCertainty == -1
-        }"
-      >
+    <section id="likert-scale" v-show="step3Show" :class="step3Class">
+      <h2>
         Marque quão forte é a relação entre o texto em (1) e o som escolhido em
         (2):
       </h2>
@@ -105,6 +89,64 @@ export default {
         return this.getAnswerCount;
       }
       return 0;
+    },
+    step1Class: function() {
+      if (this.collectedData.general_data.animated_smccs_test) {
+        if (this.videoPlays == 0) {
+          return "current-state";
+        }
+        return "done";
+      } else {
+        return "current-step";
+      }
+    },
+    step2Class: function() {
+      let c = this.randomBool ? "invert-order " : "";
+      if (this.collectedData.general_data.animated_smccs_test) {
+        if (this.videoPlays == 0) {
+          return c + "waiting";
+        }
+        if (this.videoPlays > 0 && this.selectedAudio == -1) {
+          return c + "current-step";
+        }
+        return c + "done";
+      } else {
+        return c + "current-step";
+      }
+    },
+    step3Class: function() {
+      if (this.collectedData.general_data.animated_smccs_test) {
+        if (this.videoPlays == 0 || this.selectedAudio == -1) {
+          return "waiting";
+        }
+        if (this.selectedAudio != -1 && this.likertCertainty == -1) {
+          return "current";
+        }
+        return "done";
+      } else {
+        return "current-step";
+      }
+    },
+    step1Show: function() {
+      return true;
+    },
+    step2Show: function() {
+      if (
+        !this.collectedData.general_data.animated_smccs_test ||
+        this.videoPlays > 0
+      ) {
+        return true;
+      }
+      return false;
+    },
+    step3Show: function() {
+      if (
+        !this.collectedData.general_data.animated_smccs_test ||
+        this.selectedAudio != -1
+      ) {
+        return true;
+      }
+      return false;
     }
   },
   watch: {
@@ -247,10 +289,22 @@ h2 {
   }
 }
 
-.animated-test h2 {
-  &.current-step {
-    position: relative;
+.waiting h2 {
+  opacity: 0;
+}
+
+.done h2 {
+  font-weight: 500;
+  opacity: 0.5;
+}
+
+.current-step h2 {
+}
+
+.animated-test {
+  .current-step h2 {
     color: $accent;
+    position: relative;
     &:after {
       content: "→";
       position: absolute;

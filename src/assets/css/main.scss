@@ -39,8 +39,4 @@ h2 {
   @include fs(0);
   font-weight: 750;
   transition: all 0.75s ease;
-  &.done {
-    font-weight: 500;
-    opacity: 0.5;
-  }
 }
