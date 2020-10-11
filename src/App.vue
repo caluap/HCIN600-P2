@@ -65,19 +65,11 @@ export default {
 @import "@/assets/css/_variables.scss";
 #app {
   margin: 0 auto;
-  &,
-  div,
-  section,
-  article {
-    max-width: 720px; // there can be no yuge divs!
-  }
-  width: 100%;
-
   display: flex;
   justify-content: center;
 }
 #router-view-container {
-  transition: all ease 0.5s;
+  transition: filter ease 0.5s;
   &.loading {
     & > * {
       pointer-events: none;
@@ -86,6 +78,14 @@ export default {
     & + .lds-ring {
       display: inline-block;
     }
+  }
+  &,
+  & > div,
+  & > section,
+  & > article {
+    max-width: 720px; // there can be no yuge divs!
+    min-width: #{min(720px, 100vw - 4rem)};
+    width: 100%;
   }
 }
 
