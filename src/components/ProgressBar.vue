@@ -1,10 +1,18 @@
 <template>
-  <progress :max="max" :value="value"></progress>
+  <progress :max="max" :value="calcVal"></progress>
 </template>
 
 <script>
 export default {
   name: "ProgressBar",
+  computed: {
+    calcVal: function() {
+      if (this.value == -1) {
+        return this.max;
+      }
+      return this.value;
+    }
+  },
   props: ["max", "value"]
 };
 </script>
