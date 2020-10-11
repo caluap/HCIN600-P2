@@ -239,7 +239,6 @@ export default {
   display: grid;
   justify-content: center;
   & > div {
-    min-width: min(720px, 100vw - 2rem);
     margin-top: 1rem;
     padding: 0.5rem 0.25rem;
     background-color: #000;
@@ -251,25 +250,40 @@ export default {
 #audio-files {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-row-gap: 1rem;
-  grid-column-gap: 2rem;
-  &.invert-order {
-    & > :nth-child(2) {
-      grid-column: 2;
-      grid-row: 2;
-    }
-    & > :nth-child(3) {
-      grid-column: 1;
-      grid-row: 2;
+  @media (min-width: 720px) {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 2rem;
+    grid-row-gap: 1rem;
+    &.invert-order {
+      & > :nth-child(2) {
+        grid-column: 2;
+        grid-row: 2;
+      }
+      & > :nth-child(3) {
+        grid-column: 1;
+        grid-row: 2;
+      }
     }
   }
-  &:not(.invert-order) {
+
+  @media (max-width: 720px) {
+    grid-template-columns: 1fr;
+    grid-row-gap: 2rem;
+    &.invert-order {
+      & > :nth-child(2) {
+        grid-row: 3;
+      }
+      & > :nth-child(3) {
+        grid-row: 2;
+      }
+    }
   }
 
   h2 {
-    grid-column: 1 / span 2;
-    grid-row: 1;
+    @media (min-width: 720px) {
+      grid-column: 1 / span 2;
+      grid-row: 1;
+    }
   }
 }
 
