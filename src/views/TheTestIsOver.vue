@@ -1,8 +1,23 @@
 <template>
-  <p>The test is over... now!</p>
+  <LongText>
+    <h1>Você terminou o teste!</h1>
+    <p>
+      Pelo seu tempo e disposição, somos muitissimamente gratos!
+    </p>
+    <p>
+      Caso queira trocar impressões, ficar sabendo de novidades de nossa
+      pesquisa ou mesmo receber convites para as etapas seguintes, mande uma
+      mensagem para
+      <a href="mailto:paula@fee.unicamp.br">paula@fee.unicamp.br</a> que a gente
+      entra em contato.
+    </p>
+    <p>Tenha {{ timeSensitiveGreeting }}, e até a próxima!</p>
+    <p class="emoji">😊</p>
+  </LongText>
 </template>
 
 <script>
+import LongText from "@/components/LongText.vue";
 import { mapMutations } from "vuex";
 
 export default {
@@ -10,8 +25,30 @@ export default {
   methods: {
     ...mapMutations(["incStep"])
   },
+  computed: {
+    timeSensitiveGreeting: function() {
+      let now = new Date();
+      let hour = now.getHours();
+      if (hour > 4 && hour < 12) {
+        return "um bom dia";
+      }
+      if (hour >= 12 && hour < 20) {
+        return "uma boa tarde";
+      }
+      return "uma boa noite";
+    }
+  },
   mounted() {
     this.incStep(-1);
-  }
+  },
+  components: { LongText }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/css/_mixins.scss";
+.emoji {
+  @include fs(5);
+  text-align: center;
+}
+</style>

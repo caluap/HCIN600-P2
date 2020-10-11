@@ -9,20 +9,10 @@
         para a sociedade como um todo.
       </p>
       <p>
-        Esse longo processo depende de voluntários como você. Pelo seu tempo e
-        disposição, somos muitissimamente gratos!
-      </p>
-      <hr />
-      <p>
-        Caso queira trocar impressões, ficar sabendo de novidades de nossa
-        pesquisa ou mesmo receber convites para as etapas seguintes, mande uma
-        mensagem para
-        <a href="mailto:paula@fee.unicamp.br">paula@fee.unicamp.br</a> que a
-        gente entra em contato.
-      </p>
-      <p>
-        Você pode também nos enviar algum comentário (de maneira anônima) usando
-        o campo abaixo:
+        Caso queira nos deixar comentários sobre o teste, sobre a tipografia
+        modulada pela voz, sobre possíveis aplicações, ou qualquer outro assunto
+        que quiser, fique a vontade para usar o campo abaixo. Assim como o
+        teste, os comentários são anônimos.
       </p>
       <textarea v-model="comment"></textarea>
     </LongText>
