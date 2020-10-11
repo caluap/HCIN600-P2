@@ -80,6 +80,7 @@ export default {
     }
   }
   &,
+  iframe,
   & > div,
   & > section,
   & > article {

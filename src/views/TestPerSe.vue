@@ -19,7 +19,11 @@
         />
       </div>
       <div v-else>
-        <img :src="testData.questions[currentQuestion].imageUrl" alt="" />
+        <img
+          :src="testData.questions[currentQuestion].imageUrl"
+          alt=""
+          class="smcc-img"
+        />
       </div>
     </section>
     <section id="audio-files" v-show="step2Show" :class="step2Class">
@@ -240,11 +244,13 @@ export default {
   justify-content: center;
   & > div {
     margin-top: 1rem;
-    padding: 0.5rem 0.25rem;
     background-color: #000;
     display: grid;
     justify-content: center;
   }
+}
+.smcc-img {
+  max-width: 100%;
 }
 
 #audio-files {
