@@ -4,7 +4,7 @@
     v-if="ready && collectedData && collectedData.general_data !== undefined"
   >
     <section id="smcc">
-      <h2 :class="{ done: videoPlays > 0 }">
+      <h2 :class="{ done: videoPlays > 0, 'current-step': videoPlays == 0 }">
         <template v-if="collectedData.general_data.animated_smccs_test">
           Assista ao vídeo abaixo:</template
         >
@@ -25,8 +25,14 @@
       v-if="videoPlays > 0"
       :class="{ 'invert-order': randomBool }"
     >
-      <h2 :class="{ done: selectedAudio != -1 }">
-        Agora, ouça os dois arquivos de áudio abaixo:
+      <h2
+        :class="{
+          done: selectedAudio != -1,
+          'current-step': videoPlays > 0 && selectedAudio == -1
+        }"
+      >
+        Ouça os dois arquivos de áudio abaixo e marque aquele que se relaciona
+        com o texto acima:
       </h2>
       <audio-component
         @played="incAudioPlays(0)"
@@ -46,9 +52,14 @@
       />
     </section>
     <section id="likert-scale" v-if="selectedAudio != -1">
-      <h2 :class="{ done: likertCertainty != -1 }">
-        E, enfim, nos diga quão forte é a relação entre texto em (1) e som
-        escolhido em (2):
+      <h2
+        :class="{
+          done: likertCertainty != -1,
+          'current-step': selectedAudio != -1 && likertCertainty == -1
+        }"
+      >
+        Marque quão forte é a relação entre o texto em (1) e o som escolhido em
+        (2):
       </h2>
       <likert-scale
         :scale-size="5"
@@ -141,6 +152,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/_mixins.scss";
+@import "@/assets/css/_variables.scss";
 
 #test-per-se {
   display: grid;
@@ -203,6 +215,17 @@ h2 {
   }
   &.waiting:before {
     opacity: 0;
+  }
+  &.current-step {
+    position: relative;
+    color: $accent;
+    &:after {
+      content: "→";
+      position: absolute;
+      left: -3ch;
+      top: 0;
+      font-weight: 800;
+    }
   }
 }
 </style>
