@@ -190,7 +190,7 @@ export default {
         question_index: this.currentQuestion,
         start_time: this.startTime,
         end_time: now,
-        duration: (now - this.startTime) / 1000,
+        duration: now - this.startTime,
         play_count: this.videoPlays,
         stanza_code: this.testData.questions[this.currentQuestion].stanzaCode,
         stanza_url: url,
