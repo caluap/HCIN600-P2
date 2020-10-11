@@ -165,7 +165,10 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
+    if (this.currentQuestion == this.testData.questions.length) {
+      this.$router.push({ name: "LastThoughts" });
+    }
     this.incStep(4 + this.currentQuestion);
   },
   methods: {
