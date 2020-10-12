@@ -9,6 +9,9 @@
   >
     <!-- {{ testData.questions[currentQuestion].videoId }} -->
     <section id="smcc" :class="step1Class" v-show="step1Show">
+      <h1>
+        Questão {{ currentQuestion + 1 }} de {{ testData.questions.length }}
+      </h1>
       <h2>
         <template v-if="collectedData.general_data.animated_smccs_test">
           Assista ao vídeo abaixo:</template
@@ -248,11 +251,20 @@ export default {
   background-color: #000;
 }
 
+h1 {
+  margin-bottom: 0;
+  font-weight: 750;
+  @include fs(0);
+}
+
 #smcc {
   width: 100%;
   display: grid;
   justify-content: center;
-  @include sizer;
+  h2 {
+    display: block;
+    @include sizer;
+  }
   & > div {
     margin-top: 1rem;
     display: grid;
