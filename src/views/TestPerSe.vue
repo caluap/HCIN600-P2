@@ -103,7 +103,7 @@ export default {
     step1Class: function() {
       if (this.collectedData.general_data.animated_smccs_test) {
         if (this.videoPlays == 0) {
-          return "current-state";
+          return "current-step";
         }
         return "done";
       } else {
