@@ -315,7 +315,7 @@ h2 {
     counter-increment: instruction;
     font-weight: 500;
     @include fs(-1);
-    content: counter(instruction) ".";
+    content: counter(instruction) ". ";
   }
   &.waiting:before {
     opacity: 0;
