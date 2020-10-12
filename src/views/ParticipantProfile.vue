@@ -105,20 +105,23 @@ export default {
       (state, getters) => getters.getAboutTheParticipant,
       newValue => {
         if (newValue != null) {
-          if (newValue.age_group !== null)
+          if (newValue.age_group != null)
             this.selectedAgeGroup = newValue.age_group;
-          if (newValue.education !== null)
+          if (newValue.education != null)
             this.selectedEducation = newValue.education;
-          if (newValue.gender !== null) this.selectedGender = newValue.gender;
+          if (newValue.gender != null) this.selectedGender = newValue.gender;
         }
       }
     );
   },
   mounted() {
     if (this.getAboutTheParticipant != null) {
-      this.selectedAgeGroup = this.getAboutTheParticipant.age_group;
-      this.selectedEducation = this.getAboutTheParticipant.education;
-      this.selectedGender = this.getAboutTheParticipant.gender;
+      if (this.getAboutTheParticipant.age_group != null)
+        this.selectedAgeGroup = this.getAboutTheParticipant.age_group;
+      if (this.getAboutTheParticipant.education != null)
+        this.selectedEducation = this.getAboutTheParticipant.education;
+      if (this.getAboutTheParticipant.gender != null)
+        this.selectedGender = this.getAboutTheParticipant.gender;
     }
   },
   beforeDestroy() {
