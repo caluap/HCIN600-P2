@@ -325,8 +325,6 @@ h1 {
 h2 {
   &:before {
     counter-increment: instruction;
-    font-weight: 500;
-    @include fs(-1);
     content: counter(instruction) ". ";
   }
   &.waiting:before {
