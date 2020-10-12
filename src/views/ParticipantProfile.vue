@@ -105,9 +105,11 @@ export default {
       (state, getters) => getters.getAboutTheParticipant,
       newValue => {
         if (newValue != null) {
-          this.selectedAgeGroup = newValue.age_group;
-          this.selectedEducation = newValue.education;
-          this.selectedGender = newValue.gender;
+          if (newValue.age_group !== null)
+            this.selectedAgeGroup = newValue.age_group;
+          if (newValue.education !== null)
+            this.selectedEducation = newValue.education;
+          if (newValue.gender !== null) this.selectedGender = newValue.gender;
         }
       }
     );
