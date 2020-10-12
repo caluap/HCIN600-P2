@@ -242,6 +242,7 @@ export default {
   width: 100%;
   display: grid;
   justify-content: center;
+  @include sizer;
   & > div {
     margin-top: 1rem;
     background-color: #000;

@@ -58,3 +58,9 @@ $base-font-size: 18/16 * 1rem;
   text-transform: uppercase;
   letter-spacing: 0.01em;
 }
+
+@mixin sizer {
+  max-width: 720px; // there can be no yuge divs!
+  min-width: #{min(720px, 100vw - 4rem)};
+  width: 100%;
+}

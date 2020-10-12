@@ -63,6 +63,8 @@ export default {
 
 <style lang="scss">
 @import "@/assets/css/_variables.scss";
+@import "@/assets/css/_mixins.scss";
+
 #app {
   margin: 0 auto;
   display: flex;
@@ -84,9 +86,7 @@ export default {
   & > div,
   & > section,
   & > article {
-    max-width: 720px; // there can be no yuge divs!
-    min-width: #{min(720px, 100vw - 4rem)};
-    width: 100%;
+    @include sizer;
   }
 }
 
