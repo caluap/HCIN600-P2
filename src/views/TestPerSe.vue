@@ -1,7 +1,10 @@
 <template>
   <div
     id="test-per-se"
-    :class="{ 'animated-test': collectedData.general_data.animated_smccs_test }"
+    :class="{
+      'animated-test': collectedData.general_data.animated_smccs_test,
+      'static-test': !collectedData.general_data.animated_smccs_test
+    }"
     v-if="ready && collectedData && collectedData.general_data !== undefined"
   >
     <!-- {{ testData.questions[currentQuestion].videoId }} -->
@@ -238,6 +241,13 @@ export default {
   counter-reset: instruction;
 }
 
+.static-test #smcc > div {
+  background-color: #ccc;
+}
+.animated-test #smcc > div {
+  background-color: #000;
+}
+
 #smcc {
   width: 100%;
   display: grid;
@@ -245,7 +255,6 @@ export default {
   @include sizer;
   & > div {
     margin-top: 1rem;
-    background-color: #000;
     display: grid;
     justify-content: center;
   }
