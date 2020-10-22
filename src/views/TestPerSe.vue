@@ -18,7 +18,10 @@
         >
         <template v-else>Observe a imagem abaixo:</template>
       </h2>
-      <div v-if="collectedData.general_data.animated_smccs_test">
+      <div
+        v-if="collectedData.general_data.animated_smccs_test"
+        id="youtube-container"
+      >
         <youtube
           :video-id="testData.questions[currentQuestion].videoId"
           @ended="videoPlays++"
@@ -356,5 +359,9 @@ h2 {
       font-weight: 800;
     }
   }
+}
+
+#youtube-container {
+  min-height: 4rem;
 }
 </style>
