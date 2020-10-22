@@ -24,6 +24,12 @@
       >
         <youtube
           :video-id="testData.questions[currentQuestion].videoId"
+          :player-vars="{
+            modestbranding: 1,
+            rel: 0,
+            fs: 0,
+            origin: origin
+          }"
           @ended="videoPlays++"
         />
       </div>
@@ -97,6 +103,9 @@ export default {
   computed: {
     ...mapState(["collectedData", "ready"]),
     ...mapGetters(["getAnswerCount"]),
+    origin: function() {
+      return window.location.origin;
+    },
     currentQuestion: function() {
       if (this.getAnswerCount !== null) {
         return this.getAnswerCount;
