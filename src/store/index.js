@@ -17,6 +17,12 @@ export default new Vuex.Store({
     docRef: null,
   },
   getters: {
+    getAnimTest: (state) => {
+      if (state.collectedData !== null) {
+        return state.collectedData.general_data.animated_smccs_test;
+      }
+      return null;
+    },
     getAboutTheParticipant: (state) => {
       if (state.collectedData !== null) {
         return state.collectedData.general_data.about_the_participant;
@@ -28,7 +34,7 @@ export default new Vuex.Store({
         return state.collectedData.answers.length;
       }
       return null;
-    }
+    },
   },
   mutations: {
     ...vuexfireMutations,
@@ -73,7 +79,7 @@ export default new Vuex.Store({
               context.state.docRef.get().then((doc) => {
                 if (!doc.exists) {
                   // new user!
-                  console.log("New general_data created.")
+                  console.log("New general_data created.");
                   let emptyCollectedData = {
                     general_data: {
                       animated_smccs_test: !Math.round(Math.random()),
