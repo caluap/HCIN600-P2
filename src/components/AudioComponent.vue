@@ -45,25 +45,28 @@ export default {
       this.$emit("change", this.audioIndex);
     },
     play: function() {
+      // currently playing, so a click = stop!
       if (!this.$refs.audio.paused) {
         this.$refs.playBut.classList.remove("playing");
         if (
           this.$refs.audio.currentTime >
           (2 / 3) * this.$refs.audio.duration
         ) {
-          this.$emit("played");
+          this.$emit("ended");
         }
         this.$refs.audio.currentTime = 0;
       } else {
+        // currently stoped, so a click = play!
         this.$refs.audio.play();
         this.$refs.playBut.classList.add("playing");
+        this.$emit("playing");
       }
     }
   },
   mounted: function() {
     this.$refs.audio.onended = () => {
       this.$refs.playBut.classList.remove("playing");
-      this.$emit("played");
+      this.$emit("ended");
     };
   }
 };
@@ -94,7 +97,6 @@ div {
 }
 
 .disabled {
-  opacity: 0.25;
   pointer-events: none;
 }
 

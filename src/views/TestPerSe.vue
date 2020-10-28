@@ -47,14 +47,18 @@
         relaciona com o texto acima:
       </h2>
       <audio-component
-        @played="incAudioPlays(0)"
+        @ended="incAudioPlays(0)"
+        @playing="currentlyPlaying = 0"
+        :disabled="currentlyPlaying == 1"
         v-model="selectedAudio"
         :audio-index="0"
         :can-select="!!audioPlays[0] && !!audioPlays[1]"
         :audio-file="testData.questions[currentQuestion].correctAudioUrl"
       />
       <audio-component
-        @played="incAudioPlays(1)"
+        @ended="incAudioPlays(1)"
+        @playing="currentlyPlaying = 1"
+        :disabled="currentlyPlaying == 0"
         v-model="selectedAudio"
         :audio-index="1"
         :can-select="!!audioPlays[0] && !!audioPlays[1]"
@@ -94,6 +98,7 @@ export default {
       startTime: new Date(),
       videoPlays: 0,
       audioPlays: [0, 0],
+      currentlyPlaying: -1,
       selectedAudio: -1,
       likertCertainty: -1,
       randomBool: !Math.round(Math.random()),
@@ -198,6 +203,7 @@ export default {
     ...mapMutations(["incStep"]),
     incAudioPlays: function(i) {
       this.$set(this.audioPlays, i, this.audioPlays[i] + 1);
+      this.currentlyPlaying = -1;
     },
     nextQuestion: function() {
       // submits current answer to firebase
