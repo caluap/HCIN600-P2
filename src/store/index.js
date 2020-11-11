@@ -9,6 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     userId: null,
+    collection: "test_data",
     collectedData: null,
     offlineMode: false,
     ready: false,
@@ -63,7 +64,10 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    init: firestoreAction((context) => {
+    init: firestoreAction((context, debug = false) => {
+      if (debug) {
+        context.state.collection = "debug_data";
+      }
       if (!context.state.offlineMode) {
         context.commit("startedFetch");
         firebase
@@ -74,7 +78,9 @@ export default new Vuex.Store({
               context.commit("setUserId", user.user.uid);
               context.commit(
                 "setDocRef",
-                db.collection("test_data").doc(context.state.userId)
+                db
+                  .collection(context.state.collection)
+                  .doc(context.state.userId)
               );
               context.state.docRef.get().then((doc) => {
                 if (!doc.exists) {
@@ -105,7 +111,9 @@ export default new Vuex.Store({
                       context.commit("endedFetch");
                       return context.bindFirestoreRef(
                         "collectedData",
-                        db.collection("test_data").doc(context.state.userId)
+                        db
+                          .collection(context.state.collection)
+                          .doc(context.state.userId)
                       );
                     })
                     .catch(function(err) {

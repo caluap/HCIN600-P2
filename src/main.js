@@ -17,7 +17,8 @@ new Vue({
   router,
   store,
   created() {
-    store.dispatch("init");
+    let debug = "debug" in this.$route.query;
+    store.dispatch("init", debug);
   },
   render: (h) => h(App),
 }).$mount("#app");
