@@ -26,7 +26,7 @@
       <p>Mais uma vez: nosso muito obrigado pela ajuda!</p>
       <p>
         <br />Caluã Pataca e Paula Dornhofer <br />FEEC / Unicamp
-        <br />Campinas, maio de 2019.
+        <br />Campinas, novembro de 2020.
       </p>
     </LongText>
     <PageNav href="como-funciona-o-teste">Como funciona?</PageNav>
