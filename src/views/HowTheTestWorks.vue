@@ -2,7 +2,50 @@
   <div>
     <LongText v-show="getAnimTest !== null">
       <h1>Como funciona o teste?</h1>
-      <p>Serão {{ testData.questions.length }} rodas (curtas!).</p>
+      <p>
+        O teste é composto por {{ testData.questions.length }} rodas. Em cada
+        uma, você encontrará uma interface semelhante à da imagem abaixo:
+      </p>
+
+      <div id="example-imgs">
+        <div class="img-holder">
+          <img
+            v-if="getAnimTest"
+            src="@/assets/static/img/sketch-video.png"
+            alt="Quadro congelado de um vídeo. Nele, os versos: “O fim nos acena / com um gesto discreto: / um pouco de pena / e escárnio secreto.” Os dois primeiros versos estão em uma cor mais clara que os demais."
+          />
+          <img
+            v-else
+            src="@/assets/static/img/sketch-image.png"
+            alt="O seguinte trecho de poema: “O fim nos acena / com um gesto discreto: / um pouco de pena / e escárnio secreto.” A tipografia possui algumas modificações gráficas em cada uma das sílabas."
+          />
+          <span class="img-ref left">1</span>
+        </div>
+
+        <div class="two-cols">
+          <div class="img-holder">
+            <img
+              src="@/assets/static/img/sketch-audio-left.png"
+              alt="Um tocador de áudio."
+            />
+            <span class="img-ref left">2</span>
+          </div>
+          <div class="img-holder">
+            <img
+              src="@/assets/static/img/sketch-audio-right.png"
+              alt="Outro tocador de áudio."
+            />
+            <span class="img-ref right">3</span>
+          </div>
+        </div>
+        <div class="img-holder likert">
+          <img
+            src="@/assets/static/img/sketch-likert.png"
+            alt="Uma escala likert de cinco itens entre 1 e 5."
+          />
+          <span class="img-ref left">4</span>
+        </div>
+      </div>
 
       <p>A cada rodada, você deverá:</p>
       <ol>
@@ -75,20 +118,58 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/css/_variables.scss";
 
+#example-imgs {
+  margin: 2rem 0 3rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+  img {
+    width: 100%;
+  }
+  .two-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+  }
+}
+.img-holder {
+  position: relative;
+  &.likert {
+    padding-top: 2rem;
+  }
+  .img-ref {
+    position: absolute;
+    transform: scale(0.75);
+    top: 0;
+    &.left {
+      left: 0;
+    }
+    &.right {
+      right: 0;
+    }
+  }
+}
+
 .img-ref {
   display: inline-block;
   width: 1.5rem;
   height: 1.5rem;
   font-weight: 510;
-  cursor: pointer;
-  color: white;
   text-align: center;
   border-radius: 100%;
-  background-color: #999;
-  transition: 0.25s ease all;
-  &:hover {
+  color: white;
+  @at-root .img-holder & {
     font-weight: 650;
     background-color: $accent;
+  }
+  @at-root li & {
+    cursor: pointer;
+    background-color: #999;
+    transition: 0.25s ease all;
+    &:hover {
+      font-weight: 650;
+      background-color: $accent;
+    }
   }
 }
 </style>
