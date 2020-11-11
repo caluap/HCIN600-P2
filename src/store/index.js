@@ -9,7 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     userId: null,
-    collection: "test_data",
+    collection: "evaluation_data",
     collectedData: null,
     offlineMode: false,
     ready: false,
