@@ -8,7 +8,7 @@
       </p>
 
       <div id="example-imgs">
-        <div class="img-holder">
+        <div class="img-holder" id="img1">
           <img
             v-if="getAnimTest"
             src="@/assets/static/img/sketch-video.png"
@@ -23,14 +23,14 @@
         </div>
 
         <div class="two-cols">
-          <div class="img-holder">
+          <div class="img-holder" id="img2">
             <img
               src="@/assets/static/img/sketch-audio-left.png"
               alt="Um tocador de áudio."
             />
             <span class="img-ref left">2</span>
           </div>
-          <div class="img-holder">
+          <div class="img-holder" id="img3">
             <img
               src="@/assets/static/img/sketch-audio-right.png"
               alt="Outro tocador de áudio."
@@ -38,7 +38,7 @@
             <span class="img-ref right">3</span>
           </div>
         </div>
-        <div class="img-holder likert">
+        <div class="img-holder likert" id="img4">
           <img
             src="@/assets/static/img/sketch-likert.png"
             alt="Uma escala likert de cinco itens entre 1 e 5."
@@ -50,23 +50,81 @@
       <p>A cada rodada, você deverá:</p>
       <ol>
         <li v-if="getAnimTest">
-          Assistir ao vídeo em <span class="img-ref">1</span>;
+          Assistir ao vídeo em
+          <span
+            class="img-ref"
+            @mouseover="glowImg('img1')"
+            @mouseleave="unglowImg('img1')"
+            >1</span
+          >;
         </li>
         <li v-if="!getAnimTest">
-          Ler com cuidado o texto em <span class="img-ref">1</span>;
+          Ler com cuidado o texto em
+          <span
+            class="img-ref"
+            @mouseover="glowImg('img1')"
+            @mouseleave="unglowImg('img1')"
+            >1</span
+          >;
         </li>
-        <li>Ouvir o áudio em <span class="img-ref">2</span>;</li>
-        <li>Ouvir o áudio em <span class="img-ref">3</span>;</li>
+        <li>
+          Ouvir o áudio em
+          <span
+            class="img-ref"
+            @mouseover="glowImg('img2')"
+            @mouseleave="unglowImg('img2')"
+            >2</span
+          >;
+        </li>
+        <li>
+          Ouvir o áudio em
+          <span
+            class="img-ref"
+            @mouseover="glowImg('img3')"
+            @mouseleave="unglowImg('img3')"
+            >3</span
+          >;
+        </li>
         <li>
           Escolher qual dos áudios lhe parece estar melhor relacionado
           {{ getAnimTest ? "ao vídeo" : "à imagem" }} em
-          <span class="img-ref">1</span>;
+          <span
+            class="img-ref"
+            @mouseover="glowImg('img1')"
+            @mouseleave="unglowImg('img1')"
+            >1</span
+          >;
         </li>
         <li>
-          Indicar na escala quão forte lhe pareceu a relação entre
+          Indicar na escala
+          <span
+            class="img-ref"
+            @mouseover="glowImg('img4')"
+            @mouseleave="unglowImg('img4')"
+            >4</span
+          >
+          quão forte lhe pareceu a relação entre
           {{ getAnimTest ? "o vídeo" : "a imagem" }} em
-          <span class="img-ref">1</span> e o áudio selecionado em
-          <span class="img-ref">2</span> ou <span class="img-ref">3</span>;
+          <span
+            class="img-ref"
+            @mouseover="glowImg('img1')"
+            @mouseleave="unglowImg('img1')"
+            >1</span
+          >
+          e o áudio selecionado em
+          <span
+            class="img-ref"
+            @mouseover="glowImg('img2')"
+            @mouseleave="unglowImg('img2')"
+            >2</span
+          >
+          ou
+          <span
+            class="img-ref"
+            @mouseover="glowImg('img3')"
+            @mouseleave="unglowImg('img3')"
+            >3</span
+          >;
         </li>
         <li>Avançar para a próxima rodada.</li>
       </ol>
@@ -107,7 +165,13 @@ export default {
     ...mapGetters(["getAnimTest"])
   },
   methods: {
-    ...mapMutations(["incStep"])
+    ...mapMutations(["incStep"]),
+    glowImg: function(id) {
+      document.getElementById(id).classList.add("glow");
+    },
+    unglowImg: function(id) {
+      document.getElementById(id).classList.remove("glow");
+    }
   },
   created() {
     this.incStep(1);
@@ -135,7 +199,26 @@ export default {
 .img-holder {
   position: relative;
   &.likert {
-    padding-top: 2rem;
+    margin-top: 2rem;
+    .img-ref {
+      margin-top: -2rem;
+    }
+  }
+  &:after {
+    position: absolute;
+    left: -0.5rem;
+    top: -0.5rem;
+    right: -0.5rem;
+    bottom: -0.5rem;
+    content: "";
+    opacity: 0;
+    transition: all 0.5s ease;
+    border: 0.125rem solid $accent;
+  }
+  &.glow {
+    &:after {
+      opacity: 1;
+    }
   }
   .img-ref {
     position: absolute;
@@ -163,7 +246,6 @@ export default {
     background-color: $accent;
   }
   @at-root li & {
-    cursor: pointer;
     background-color: #999;
     transition: 0.25s ease all;
     &:hover {
