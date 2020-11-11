@@ -12,6 +12,7 @@ export default new Vuex.Store({
     collection: "evaluation_data",
     collectedData: null,
     offlineMode: false,
+    debugMode: false,
     ready: false,
     fetches: 0,
     currentStep: 0,
@@ -55,6 +56,9 @@ export default new Vuex.Store({
       state.fetches++;
       state.ready = false;
     },
+    isDebug(state) {
+      state.debugMode = true;
+    },
     incStep(state, step = null) {
       if (step !== null) {
         state.currentStep = step;
@@ -67,6 +71,7 @@ export default new Vuex.Store({
     init: firestoreAction((context, debug = false) => {
       if (debug) {
         context.state.collection = "debug_data";
+        context.commit("isDebug");
       }
       if (!context.state.offlineMode) {
         context.commit("startedFetch");
