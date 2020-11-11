@@ -74,10 +74,8 @@
             @mouseover="glowImg('img2')"
             @mouseleave="unglowImg('img2')"
             >2</span
-          >;
-        </li>
-        <li>
-          Ouça também o áudio em
+          >
+          e em
           <span
             class="img-ref"
             @mouseover="glowImg('img3')"
