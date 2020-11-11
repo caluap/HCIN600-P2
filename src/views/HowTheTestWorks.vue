@@ -4,7 +4,7 @@
       <h1>Como funciona o teste?</h1>
       <p>
         O teste é composto por {{ testData.questions.length }} rodas. Em cada
-        uma, você encontrará uma interface semelhante à da imagem abaixo:
+        uma, você encontrará uma interface semelhante à apresentada abaixo:
       </p>
 
       <div id="example-imgs">
@@ -47,10 +47,10 @@
         </div>
       </div>
 
-      <p>A cada rodada, você deverá:</p>
+      <p>A cada rodada:</p>
       <ol>
         <li v-if="getAnimTest">
-          Assistir ao vídeo em
+          Assista ao vídeo em
           <span
             class="img-ref"
             @mouseover="glowImg('img1')"
@@ -59,7 +59,7 @@
           >;
         </li>
         <li v-if="!getAnimTest">
-          Ler com cuidado o texto em
+          Leia com cuidado o texto em
           <span
             class="img-ref"
             @mouseover="glowImg('img1')"
@@ -68,7 +68,7 @@
           >;
         </li>
         <li>
-          Ouvir o áudio em
+          Ouça o áudio em
           <span
             class="img-ref"
             @mouseover="glowImg('img2')"
@@ -77,7 +77,7 @@
           >;
         </li>
         <li>
-          Ouvir o áudio em
+          Ouça também o áudio em
           <span
             class="img-ref"
             @mouseover="glowImg('img3')"
@@ -86,17 +86,11 @@
           >;
         </li>
         <li>
-          Escolher qual dos áudios lhe parece estar melhor relacionado
-          {{ getAnimTest ? "ao vídeo" : "à imagem" }} em
-          <span
-            class="img-ref"
-            @mouseover="glowImg('img1')"
-            @mouseleave="unglowImg('img1')"
-            >1</span
-          >;
+          Escolha qual dos áudios lhe parece estar melhor relacionado
+          {{ getAnimTest ? "ao vídeo" : "à imagem" }};
         </li>
         <li>
-          Indicar na escala
+          Indique na escala
           <span
             class="img-ref"
             @mouseover="glowImg('img4')"
@@ -104,29 +98,10 @@
             >4</span
           >
           quão forte lhe pareceu a relação entre
-          {{ getAnimTest ? "o vídeo" : "a imagem" }} em
-          <span
-            class="img-ref"
-            @mouseover="glowImg('img1')"
-            @mouseleave="unglowImg('img1')"
-            >1</span
-          >
-          e o áudio selecionado em
-          <span
-            class="img-ref"
-            @mouseover="glowImg('img2')"
-            @mouseleave="unglowImg('img2')"
-            >2</span
-          >
-          ou
-          <span
-            class="img-ref"
-            @mouseover="glowImg('img3')"
-            @mouseleave="unglowImg('img3')"
-            >3</span
-          >;
+          {{ getAnimTest ? "o vídeo" : "a imagem" }}
+          e o áudio selecionado;
         </li>
-        <li>Avançar para a próxima rodada.</li>
+        <li>Avance para a próxima rodada.</li>
       </ol>
       <p>
         Você poderá {{ getAnimTest ? "assistir ao vídeo e " : "" }}ouvir aos
@@ -186,39 +161,31 @@ export default {
   margin: 2rem 0 3rem;
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 1rem;
+  grid-gap: 0.25rem;
   img {
-    width: 100%;
+    width: calc(100% - 1rem);
+    margin: 0.5rem;
   }
   .two-cols {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
+    grid-gap: 0.25rem;
   }
 }
 .img-holder {
   position: relative;
   &.likert {
-    margin-top: 2rem;
+    padding-top: 2rem;
     .img-ref {
-      margin-top: -2rem;
     }
   }
-  &:after {
-    position: absolute;
-    left: -0.5rem;
-    top: -0.5rem;
-    right: -0.5rem;
-    bottom: -0.5rem;
-    content: "";
-    opacity: 0;
-    transition: all 0.5s ease;
-    border: 0.125rem solid $accent;
-  }
+  padding: 0.5rem;
+  border: 2px solid #ccc;
+  border-radius: 0.125rem;
+  transition: all 0.75s ease;
+
   &.glow {
-    &:after {
-      opacity: 1;
-    }
+    border-color: $accent;
   }
   .img-ref {
     position: absolute;
