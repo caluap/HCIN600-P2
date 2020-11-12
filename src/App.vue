@@ -5,6 +5,8 @@
       :max="nSteps"
       :value="currentStep"
     ></ProgressBar>
+
+    <div id="debug-mode" v-if="debugMode">debug mode</div>
     <div :class="{ loading: !ready }" id="router-view-container">
       <router-view />
     </div>
@@ -29,7 +31,13 @@ export default {
     return {};
   },
   computed: {
-    ...mapState(["userId", "collectedData", "ready", "currentStep"]),
+    ...mapState([
+      "userId",
+      "collectedData",
+      "ready",
+      "currentStep",
+      "debugMode"
+    ]),
     nSteps: function() {
       return testData.questions.length + 4;
     }
@@ -127,5 +135,11 @@ export default {
   100% {
     transform: rotate(360deg);
   }
+}
+
+#debug-mode {
+  position: fixed;
+  bottom: 0.5rem;
+  left: 0.5rem;
 }
 </style>

@@ -1,6 +1,9 @@
 <template>
   <LongText>
     <h1>Você terminou o teste!</h1>
+    <div v-if="debugMode">
+      <p>{{ collectedData }}</p>
+    </div>
     <p>
       Pelo seu tempo e disposição, somos muitissimamente gratos!
     </p>
@@ -18,7 +21,7 @@
 
 <script>
 import LongText from "@/components/LongText.vue";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
 export default {
   name: "TheTestIsOver",
@@ -26,6 +29,7 @@ export default {
     ...mapMutations(["incStep"])
   },
   computed: {
+    ...mapState(["debugMode", "collectedData"]),
     timeSensitiveGreeting: function() {
       let now = new Date();
       let hour = now.getHours();
