@@ -79,7 +79,6 @@ export default new Vuex.Store({
           }
         }
         if ("animation_mode" in query) {
-          console.log(query);
           animationMode = !!parseInt(query.animation_mode);
           console.log(`Manually set animated_smccs_test as ${animationMode}.`);
         }
