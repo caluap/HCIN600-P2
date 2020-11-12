@@ -69,6 +69,7 @@ export default new Vuex.Store({
   },
   actions: {
     init: firestoreAction((context, query = {}) => {
+      let animationMode = !Math.round(Math.random());
       if (query != {}) {
         if ("debug" in query) {
           context.commit("setDebug", parseInt(query.debug));
@@ -76,6 +77,11 @@ export default new Vuex.Store({
           if (query.debug > 0) {
             context.state.collection = "debug_data";
           }
+        }
+        if ("animation_mode" in query) {
+          console.log(query);
+          animationMode = !!parseInt(query.animation_mode);
+          console.log(`Manually set animated_smccs_test as ${animationMode}.`);
         }
       }
       if (!context.state.offlineMode) {
@@ -98,7 +104,7 @@ export default new Vuex.Store({
                   console.log("New general_data created.");
                   let emptyCollectedData = {
                     general_data: {
-                      animated_smccs_test: !Math.round(Math.random()),
+                      animated_smccs_test: animationMode,
                       start_time: new Date(),
                       end_time: null,
                       answers_count: 0,
