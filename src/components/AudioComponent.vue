@@ -53,7 +53,10 @@ export default {
           (2 / 3) * this.$refs.audio.duration
         ) {
           this.$emit("ended");
+        } else {
+          this.$emit("paused");
         }
+        this.$refs.audio.pause();
         this.$refs.audio.currentTime = 0;
       } else {
         // currently stoped, so a click = play!

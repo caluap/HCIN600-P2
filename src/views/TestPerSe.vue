@@ -49,6 +49,7 @@
       <audio-component
         @ended="incAudioPlays(0)"
         @playing="currentlyPlaying = 0"
+        @paused="currentlyPlaying = -1"
         :disabled="currentlyPlaying == 1"
         v-model="selectedAudio"
         :audio-index="0"
@@ -58,6 +59,7 @@
       <audio-component
         @ended="incAudioPlays(1)"
         @playing="currentlyPlaying = 1"
+        @paused="currentlyPlaying = -1"
         :disabled="currentlyPlaying == 0"
         v-model="selectedAudio"
         :audio-index="1"
