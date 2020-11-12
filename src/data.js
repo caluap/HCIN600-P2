@@ -1,61 +1,180 @@
-let soundsPath = "./assets/static/sounds";
+/*
+
+Random Poem Order: 2, 1, 4, 3
+
+Imgs: 
+00 2a1
+01 2b2
+02 2a3
+03 2b4
+04 1a1
+05 1b2
+06 1b3
+07 4b1
+08 4a2
+09 4a3
+10 4a4
+11 3b1
+12 3a2
+13 3b3
+14 3b4
+
+Vids:
+00 2b1 https://youtu.be/9wcRp6Ar7vQ
+01 2a2 https://youtu.be/0ZRyLU6v8fg
+02 2a3 https://youtu.be/ELe_KKWG92Y
+03 2a4 https://youtu.be/46Ba0D9PoNk
+04 1a1 https://youtu.be/7LsxvFoJPhQ
+05 1b2 https://youtu.be/rcN5TFeZ_-k
+06 1a3 https://youtu.be/bB4Aiw0k9A0
+07 4a1 https://youtu.be/tCiBmoQJTtU
+08 4b2 https://youtu.be/9iXBX1DpTLA
+09 4a3 https://youtu.be/_SFJs-MPnew
+10 4b4 https://youtu.be/RyhANc5xPmo
+11 3a1 https://youtu.be/JZ49M_QJb1Y
+12 3b2 https://youtu.be/8KhT2435nqQ
+13 3a3 https://youtu.be/ytnBCcmcgPs
+14 3a4 https://youtu.be/05uZrADPzPQ
+
+*/
+let soundsPath = "./assets/static/sounds",
+  imgPath = "./assets/static/img/test_images/";
 export var testData = {
   questions: [
     {
-      stanzaCode: "0",
-      videoId: "S8nRAuhm8xI",
-      imageUrl: "https://i3.ytimg.com/vi/S8nRAuhm8xI/hqdefault.jpg",
-      correctAudioUrl: require(`${soundsPath}/correct.mp3`),
-      incorrectAudioUrl: require(`${soundsPath}/incorrect.mp3`),
+      stanzaCode: "01-p2-1",
+      videoId: "9wcRp6Ar7vQ",
+      imageUrl: require(imgPath + "00.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-2a_01.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-2b_01.mp3`),
+      videoCode: "b",
+      imgCode: "a",
     },
     {
-      stanzaCode: "1",
-      videoId: "tH6R22kdSh8",
-      imageUrl: "https://i3.ytimg.com/vi/tH6R22kdSh8/hqdefault.jpg",
-      correctAudioUrl: require(`${soundsPath}/correct.mp3`),
-      incorrectAudioUrl: require(`${soundsPath}/incorrect.mp3`),
+      stanzaCode: "02-p2-2",
+      videoId: "0ZRyLU6v8fg",
+      imageUrl: require(imgPath + "01.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-2a_02.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-2b_02.mp3`),
+      videoCode: "a",
+      imgCode: "b",
     },
     {
-      stanzaCode: "2",
-      videoId: "G-fwuAzlBC0",
-      imageUrl: "https://i3.ytimg.com/vi/G-fwuAzlBC0/hqdefault.jpg",
-      correctAudioUrl: require(`${soundsPath}/correct.mp3`),
-      incorrectAudioUrl: require(`${soundsPath}/incorrect.mp3`),
+      stanzaCode: "03-p2-3",
+      videoId: "ELe_KKWG92Y",
+      imageUrl: require(imgPath + "02.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-2a_03.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-2b_03.mp3`),
+      videoCode: "a",
+      imgCode: "a",
     },
     {
-      stanzaCode: "3",
-      videoId: "krE129lP1fk",
-      imageUrl: "https://i3.ytimg.com/vi/krE129lP1fk/hqdefault.jpg",
-      correctAudioUrl: require(`${soundsPath}/correct.mp3`),
-      incorrectAudioUrl: require(`${soundsPath}/incorrect.mp3`),
+      stanzaCode: "04-p2-4",
+      videoId: "46Ba0D9PoNk",
+      imageUrl: require(imgPath + "03.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-2a_04.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-2b_04.mp3`),
+      videoCode: "a",
+      imgCode: "b",
     },
     {
-      stanzaCode: "4",
-      videoId: "93XpqdbMQEY",
-      imageUrl: "https://i3.ytimg.com/vi/93XpqdbMQEY/hqdefault.jpg",
-      correctAudioUrl: require(`${soundsPath}/correct.mp3`),
-      incorrectAudioUrl: require(`${soundsPath}/incorrect.mp3`),
+      stanzaCode: "05-p1-1",
+      videoId: "7LsxvFoJPhQ",
+      imageUrl: require(imgPath + "04.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-1a_01.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-1b_01.mp3`),
+      videoCode: "a",
+      imgCode: "a",
     },
     {
-      stanzaCode: "5",
-      videoId: "53SGotIVBaY",
-      imageUrl: "https://i3.ytimg.com/vi/53SGotIVBaY/hqdefault.jpg",
-      correctAudioUrl: require(`${soundsPath}/correct.mp3`),
-      incorrectAudioUrl: require(`${soundsPath}/incorrect.mp3`),
+      stanzaCode: "06-p1-2",
+      videoId: "rcN5TFeZ_-k",
+      imageUrl: require(imgPath + "05.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-1a_02.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-1b_02.mp3`),
+      videoCode: "b",
+      imgCode: "b",
     },
     {
-      stanzaCode: "6",
-      videoId: "-uXx33qdt-k",
-      imageUrl: "https://i3.ytimg.com/vi/-uXx33qdt-k/hqdefault.jpg",
-      correctAudioUrl: require(`${soundsPath}/correct.mp3`),
-      incorrectAudioUrl: require(`${soundsPath}/incorrect.mp3`),
+      stanzaCode: "07-p1-3",
+      videoId: "bB4Aiw0k9A0",
+      imageUrl: require(imgPath + "06.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-1a_03.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-1b_03.mp3`),
+      videoCode: "a",
+      imgCode: "b",
     },
     {
-      stanzaCode: "7",
-      videoId: "WQ5vOWwYqts",
-      imageUrl: "https://i3.ytimg.com/vi/WQ5vOWwYqts/hqdefault.jpg",
-      correctAudioUrl: require(`${soundsPath}/correct.mp3`),
-      incorrectAudioUrl: require(`${soundsPath}/incorrect.mp3`),
+      stanzaCode: "08-p4-1",
+      videoId: "tCiBmoQJTtU",
+      imageUrl: require(imgPath + "07.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-4a_01.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-4b_01.mp3`),
+      videoCode: "a",
+      imgCode: "b",
+    },
+    {
+      stanzaCode: "09-p4-2",
+      videoId: "9iXBX1DpTLA",
+      imageUrl: require(imgPath + "08.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-4a_02.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-4b_02.mp3`),
+      videoCode: "b",
+      imgCode: "a",
+    },
+    {
+      stanzaCode: "10-p4-3",
+      videoId: "_SFJs-MPnew",
+      imageUrl: require(imgPath + "09.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-4a_03.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-4b_03.mp3`),
+      videoCode: "a",
+      imgCode: "a",
+    },
+    {
+      stanzaCode: "11-p4-4",
+      videoId: "RyhANc5xPmo",
+      imageUrl: require(imgPath + "10.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-4a_04.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-4b_04.mp3`),
+      videoCode: "b",
+      imgCode: "a",
+    },
+    {
+      stanzaCode: "12-p3-1",
+      videoId: "JZ49M_QJb1Y",
+      imageUrl: require(imgPath + "11.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-3a_01.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-3b_01.mp3`),
+      videoCode: "a",
+      imgCode: "b",
+    },
+    {
+      stanzaCode: "13-p3-2",
+      videoId: "8KhT2435nqQ",
+      imageUrl: require(imgPath + "12.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-3a_02.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-3b_02.mp3`),
+      videoCode: "b",
+      imgCode: "a",
+    },
+    {
+      stanzaCode: "14-p3-3",
+      videoId: "ytnBCcmcgPs",
+      imageUrl: require(imgPath + "13.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-3a_03.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-3b_03.mp3`),
+      videoCode: "a",
+      imgCode: "b",
+    },
+    {
+      stanzaCode: "p3-4",
+      videoId: "05uZrADPzPQ",
+      imageUrl: require(imgPath + "14.png"),
+      AudioAUrl: require(`${soundsPath}/Poema-3a_04.mp3`),
+      AudioBUrl: require(`${soundsPath}/Poema-3b_04.mp3`),
+      videoCode: "a",
+      imgCode: "b",
     },
   ],
 };
