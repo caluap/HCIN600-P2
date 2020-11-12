@@ -79,7 +79,7 @@
       />
     </section>
 
-    <p v-if="debugMode && likertCertainty != -1">{{ whichIsRight() }}</p>
+    <p v-if="debugMode == 2 && likertCertainty != -1">{{ whichIsRight() }}</p>
     <PageNav :disabled-button="likertCertainty == -1" @clicked="nextQuestion"
       >Próxima Pergunta</PageNav
     >
