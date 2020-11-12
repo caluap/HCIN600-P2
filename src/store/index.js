@@ -178,7 +178,8 @@ export default new Vuex.Store({
 
       dataCopy.statistics = {
         average_answer_duration:
-          totalDuration / dataCopy.general_data.answers_count / 1000,
+          totalDuration / dataCopy.general_data.answers_count,
+        test_duration: totalDuration,
         percentage_of_correct_answers:
           correctAnswers / dataCopy.general_data.answers_count,
       };
