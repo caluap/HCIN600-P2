@@ -17,11 +17,7 @@ new Vue({
   router,
   store,
   created() {
-    let debug = "debug" in this.$route.query;
-    if (debug) {
-      console.log("debug mode");
-    }
-    store.dispatch("init", debug);
+    store.dispatch("init", this.$route.query);
   },
   render: (h) => h(App),
 }).$mount("#app");

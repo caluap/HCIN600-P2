@@ -12,7 +12,7 @@ export default new Vuex.Store({
     collection: "evaluation_data",
     collectedData: null,
     offlineMode: false,
-    debugMode: false,
+    debugMode: 0,
     ready: false,
     fetches: 0,
     currentStep: 0,
@@ -56,8 +56,8 @@ export default new Vuex.Store({
       state.fetches++;
       state.ready = false;
     },
-    isDebug(state) {
-      state.debugMode = true;
+    setDebug(state, mode) {
+      state.debugMode = mode;
     },
     incStep(state, step = null) {
       if (step !== null) {
@@ -68,10 +68,15 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    init: firestoreAction((context, debug = false) => {
-      if (debug) {
-        context.state.collection = "debug_data";
-        context.commit("isDebug");
+    init: firestoreAction((context, query = {}) => {
+      if (query != {}) {
+        if ("debug" in query) {
+          context.commit("setDebug", parseInt(query.debug));
+          console.log(`Debug mode manually set to ${query.debug}.`);
+          if (query.debug > 0) {
+            context.state.collection = "debug_data";
+          }
+        }
       }
       if (!context.state.offlineMode) {
         context.commit("startedFetch");

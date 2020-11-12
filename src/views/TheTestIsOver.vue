@@ -1,7 +1,7 @@
 <template>
   <LongText>
     <h1>Você terminou o teste!</h1>
-    <div v-if="debugMode">
+    <div v-if="debugMode == 2">
       <p>{{ collectedData }}</p>
     </div>
     <p>

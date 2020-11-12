@@ -6,7 +6,7 @@
       :value="currentStep"
     ></ProgressBar>
 
-    <div id="debug-mode" v-if="debugMode">debug mode</div>
+    <div id="debug-mode" v-if="debugMode">debug mode: {{ debugMode }}</div>
     <div :class="{ loading: !ready }" id="router-view-container">
       <router-view />
     </div>
