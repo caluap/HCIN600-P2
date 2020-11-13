@@ -20,7 +20,7 @@
       </p>
       <p>
         Importante ressaltar um ponto: se a qualquer momento e por qualquer
-        razão você quiser abandonar o teste fique a vontade — não estará
+        razão você quiser abandonar o teste fique à vontade — não estará
         causando nenhum mal ao teste.
       </p>
       <p>

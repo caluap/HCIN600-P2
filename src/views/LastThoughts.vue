@@ -11,7 +11,7 @@
       <p>
         Caso queira nos deixar comentários sobre o teste, sobre a tipografia
         modulada pela voz, sobre possíveis aplicações, ou qualquer outro assunto
-        que quiser, fique a vontade para usar o campo abaixo. Assim como o
+        que quiser, fique à vontade para usar o campo abaixo. Assim como o
         teste, os comentários são anônimos.
       </p>
       <textarea v-model="comment"></textarea>
