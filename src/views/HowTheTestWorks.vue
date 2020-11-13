@@ -114,9 +114,18 @@
       </p>
       <p>
         Se quiser fazer um teste, o tocador de áudio abaixo tem um exemplo
-        semelhante aos que usaremos no teste.
-      </p></LongText
-    >
+        semelhante aos que usaremos no teste:
+      </p>
+
+      <div id="audio-spacer">
+        <audio-component
+          :disabled="false"
+          :audio-index="0"
+          :can-select="false"
+          :audio-file="require(`@/assets/static/sounds/audio-example.mp3`)"
+        />
+      </div>
+    </LongText>
 
     <PageNav href="tcle">Termos do teste</PageNav>
   </div>
@@ -125,12 +134,13 @@
 <script>
 import LongText from "@/components/LongText.vue";
 import PageNav from "@/components/PageNav.vue";
+import AudioComponent from "@/components/AudioComponent.vue";
 import { mapMutations, mapGetters } from "vuex";
 import { testData } from "@/data.js";
 
 export default {
   name: "HowTheTestWorks",
-  components: { LongText, PageNav },
+  components: { LongText, PageNav, AudioComponent },
   data() {
     return { testData: testData };
   },
@@ -218,5 +228,9 @@ export default {
       background-color: $accent;
     }
   }
+}
+
+#audio-spacer {
+  margin-top: 1rem;
 }
 </style>
