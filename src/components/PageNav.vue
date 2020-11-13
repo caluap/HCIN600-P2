@@ -1,13 +1,19 @@
 <template>
-  <div @click="butClick()">
-    <!-- @click on container div solution from https://forum.vuejs.org/t/make-native-event-modifier-conditional/82730/6 -->
-    <a
+  <div>
+    <div
+      id="but-container"
+      @click="butClick()"
       :class="{ disabled: disabledButton }"
-      :is="!!href ? `router-link` : `a`"
-      :to="!!href ? href : false"
     >
-      <slot></slot>
-    </a>
+      <!-- @click on container div solution from https://forum.vuejs.org/t/make-native-event-modifier-conditional/82730/6 -->
+      <a
+        :class="{ disabled: disabledButton }"
+        :is="!!href ? `router-link` : `a`"
+        :to="!!href ? href : false"
+      >
+        <slot></slot>
+      </a>
+    </div>
   </div>
 </template>
 
@@ -59,5 +65,13 @@ a {
     color: #ccc;
     border-color: #bbb;
   }
+}
+
+#but-container {
+  float: right;
+}
+
+.disabled {
+  pointer-events: none;
 }
 </style>
