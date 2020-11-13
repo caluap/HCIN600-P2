@@ -3,7 +3,7 @@
     <LongText v-show="getAnimTest !== null">
       <h1>Como funciona o teste?</h1>
       <p>
-        O teste é composto por {{ testData.questions.length }} rodas. Em cada
+        O teste é composto por {{ testData.questions.length }} rodadas. Em cada
         uma, você encontrará uma interface semelhante à apresentada abaixo:
       </p>
 
