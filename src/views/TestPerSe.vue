@@ -10,7 +10,7 @@
     <!-- {{ testData.questions[currentQuestion].videoId }} -->
     <section id="smcc" :class="step1Class" v-show="step1Show">
       <h1>
-        Questão {{ currentQuestion + 1 }} de {{ testData.questions.length }}
+        Rodada {{ currentQuestion + 1 }} de {{ testData.questions.length }}
       </h1>
       <h2>
         <template v-if="collectedData.general_data.animated_smccs_test">
@@ -83,7 +83,7 @@
 
     <p v-if="debugMode == 2 && likertCertainty != -1">{{ whichIsRight() }}</p>
     <PageNav :disabled-button="likertCertainty == -1" @clicked="nextQuestion"
-      >Próxima Pergunta</PageNav
+      >Próxima rodada</PageNav
     >
   </div>
 </template>
