@@ -24,7 +24,7 @@
             :id="`r-${index}`"
             :value="index"
             @change="$emit('change', index)"
-            :v-model="likertChoice"
+            :checked="likertChoice == index"
           />
           {{ index }}</label
         >

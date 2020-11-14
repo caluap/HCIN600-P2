@@ -193,6 +193,10 @@ export default {
         setTimeout(() => {
           this.$scrollTo(document.getElementById("likert-scale"), 2500);
         }, 250);
+      } else if (oldValue != -1 && this.likertCertainty != -1) {
+        // in case a likert value had already been selected
+        // but the participant changed his audio choice...
+        this.likertCertainty = -1;
       }
     }
   },
