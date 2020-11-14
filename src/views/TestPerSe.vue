@@ -7,7 +7,6 @@
     }"
     v-if="ready && collectedData && collectedData.general_data !== undefined"
   >
-    <!-- {{ testData.questions[currentQuestion].videoId }} -->
     <section id="smcc" :class="step1Class" v-show="step1Show">
       <h1>
         Rodada {{ currentQuestion + 1 }} de {{ testData.questions.length }}
@@ -23,6 +22,7 @@
         id="youtube-container"
       >
         <youtube
+          ref="yt"
           :video-id="testData.questions[currentQuestion].videoId"
           :player-vars="{
             modestbranding: 1,
@@ -48,8 +48,8 @@
       </h2>
       <audio-component
         @ended="incAudioPlays(0)"
-        @playing="currentlyPlaying = 0"
-        @paused="currentlyPlaying = -1"
+        @playing="syncVid(0)"
+        @paused="syncVid(-1)"
         :disabled="currentlyPlaying == 1"
         v-model="selectedAudio"
         :audio-index="0"
@@ -58,8 +58,8 @@
       />
       <audio-component
         @ended="incAudioPlays(1)"
-        @playing="currentlyPlaying = 1"
-        @paused="currentlyPlaying = -1"
+        @playing="syncVid(1)"
+        @paused="syncVid(-1)"
         :disabled="currentlyPlaying == 0"
         v-model="selectedAudio"
         :audio-index="1"
@@ -205,6 +205,17 @@ export default {
   methods: {
     ...mapActions(["pushAnswer"]),
     ...mapMutations(["incStep"]),
+    syncVid: function(audioIndex) {
+      this.currentlyPlaying = audioIndex;
+      if (this.collectedData.general_data.animated_smccs_test) {
+        this.$refs.yt.player.seekTo(0);
+        if (audioIndex != -1) {
+          this.$refs.yt.player.playVideo();
+        } else {
+          this.$refs.yt.player.stopVideo();
+        }
+      }
+    },
     whichIsRight: function() {
       let which = "esquerda";
       if (this.collectedData.general_data.animated_smccs_test) {
@@ -305,7 +316,7 @@ export default {
 #test-per-se {
   display: grid;
   grid-template-columns: 1fr;
-  grid-row-gap: 8rem;
+  grid-row-gap: 4rem;
   counter-reset: instruction;
 }
 
