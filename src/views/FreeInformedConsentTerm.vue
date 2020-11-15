@@ -5,7 +5,7 @@
       <p>
         Esta é uma pesquisa homologada pelo
         <a
-          href="https://prp-web.cenapad.unicamp.br/pt-br/cep-comite-de-etica-em-pesquisa"
+          href="//prp-web.cenapad.unicamp.br/pt-br/cep-comite-de-etica-em-pesquisa"
           target="_blank"
           >Comitê de Ética em Pesquisa</a
         >
