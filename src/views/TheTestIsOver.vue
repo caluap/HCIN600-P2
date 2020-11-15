@@ -14,6 +14,27 @@
       <a href="mailto:paula@fee.unicamp.br">paula@fee.unicamp.br</a> que a gente
       entra em contato.
     </p>
+    <p>
+      Foram apresentados quatro poemas, todos de Paulo Henriques Britto e lidos
+      por
+      <a
+        href="https://open.spotify.com/artist/1ustMNrldThyWFqmTbduQw"
+        target="_blank"
+        >Gabriel Edé</a
+      >:
+      <a href="https://www.youtube.com/watch?v=JOOw5qvXAvc" target="_blank"
+        >Súcubo</a
+      >;
+      <a href="https://www.youtube.com/watch?v=CdgyhU9r54o" target="_blank"
+        >Três Prenúncios, III</a
+      >;
+      <a href="https://www.youtube.com/watch?v=BoEg8zjjm0w" target="_blank"
+        >Três tercinas, I</a
+      >;
+      <a href="https://www.youtube.com/watch?v=YlZG4mTEHiY" target="_blank"
+        >Dez sonetóides mancos, VI</a
+      >.
+    </p>
     <p>Tenha {{ timeSensitiveGreeting }}, e até a próxima!</p>
     <p class="emoji">😊</p>
   </LongText>
