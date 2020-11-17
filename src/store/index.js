@@ -6,6 +6,28 @@ import firebase from "firebase";
 
 Vue.use(Vuex);
 
+// https://stackoverflow.com/a/2450976/
+function shuffledDataOrder() {
+  let array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+    currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
 export default new Vuex.Store({
   state: {
     userId: null,
@@ -19,6 +41,11 @@ export default new Vuex.Store({
     docRef: null,
   },
   getters: {
+    getDataIndex: (state, getters) => {
+      return state.collectedData.general_data.data_indexes[
+        getters.getAnswerCount
+      ];
+    },
     getAnimTest: (state) => {
       if (state.collectedData !== null) {
         return state.collectedData.general_data.animated_smccs_test;
@@ -69,7 +96,8 @@ export default new Vuex.Store({
   },
   actions: {
     init: firestoreAction((context, query = {}) => {
-      let animationMode = !Math.round(Math.random());
+      let animationMode = !Math.round(Math.random()),
+        dataIndexes = shuffledDataOrder();
       if (query != {}) {
         if ("debug" in query) {
           context.commit("setDebug", parseInt(query.debug));
@@ -104,6 +132,7 @@ export default new Vuex.Store({
                   let emptyCollectedData = {
                     general_data: {
                       animated_smccs_test: animationMode,
+                      data_indexes: dataIndexes,
                       start_time: new Date(),
                       end_time: null,
                       answers_count: 0,

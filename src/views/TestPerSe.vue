@@ -23,7 +23,7 @@
       >
         <youtube
           ref="yt"
-          :video-id="testData.questions[currentQuestion].videoId"
+          :video-id="testData.questions[getDataIndex].videoId"
           :player-vars="{
             modestbranding: 1,
             rel: 0,
@@ -35,7 +35,7 @@
       </div>
       <div v-else>
         <img
-          :src="testData.questions[currentQuestion].imageUrl"
+          :src="testData.questions[getDataIndex].imageUrl"
           alt=""
           class="smcc-img"
         />
@@ -54,7 +54,7 @@
         v-model="selectedAudio"
         :audio-index="0"
         :can-select="!!audioPlays[0] && !!audioPlays[1]"
-        :audio-file="testData.questions[currentQuestion].AudioAUrl"
+        :audio-file="testData.questions[getDataIndex].AudioAUrl"
       />
       <audio-component
         @ended="incAudioPlays(1)"
@@ -64,7 +64,7 @@
         v-model="selectedAudio"
         :audio-index="1"
         :can-select="!!audioPlays[0] && !!audioPlays[1]"
-        :audio-file="testData.questions[currentQuestion].AudioBUrl"
+        :audio-file="testData.questions[getDataIndex].AudioBUrl"
       />
     </section>
     <section id="likert-scale" v-show="step3Show" :class="step3Class">
@@ -111,7 +111,7 @@ export default {
   },
   computed: {
     ...mapState(["collectedData", "ready", "debugMode"]),
-    ...mapGetters(["getAnswerCount"]),
+    ...mapGetters(["getAnswerCount", "getDataIndex"]),
     origin: function() {
       return window.location.origin;
     },
@@ -225,24 +225,24 @@ export default {
       if (this.collectedData.general_data.animated_smccs_test) {
         if (this.randomBool) {
           which =
-            this.testData.questions[this.currentQuestion].videoCode == "a"
+            this.testData.questions[this.getDataIndex].videoCode == "a"
               ? "direita"
               : "esquerda";
         } else {
           which =
-            this.testData.questions[this.currentQuestion].videoCode == "a"
+            this.testData.questions[this.getDataIndex].videoCode == "a"
               ? "esquerda"
               : "direita";
         }
       } else {
         if (this.randomBool) {
           which =
-            this.testData.questions[this.currentQuestion].imgCode == "a"
+            this.testData.questions[this.getDataIndex].imgCode == "a"
               ? "direita"
               : "esquerda";
         } else {
           which =
-            this.testData.questions[this.currentQuestion].imgCode == "a"
+            this.testData.questions[this.getDataIndex].imgCode == "a"
               ? "esquerda"
               : "direita";
         }
@@ -259,16 +259,16 @@ export default {
         url;
       if (this.collectedData.general_data.animated_smccs_test) {
         url = `https://youtu.be/${
-          this.testData.questions[this.currentQuestion].videoId
+          this.testData.questions[this.getDataIndex].videoId
         }`;
-        if (this.testData.questions[this.currentQuestion].videoCode == "a") {
+        if (this.testData.questions[this.getDataIndex].videoCode == "a") {
           chose_the_right_choice = this.selectedAudio == 0;
         } else {
           chose_the_right_choice = this.selectedAudio == 1;
         }
       } else {
-        url = this.testData.questions[this.currentQuestion].imageUrl;
-        if (this.testData.questions[this.currentQuestion].imgCode == "a") {
+        url = this.testData.questions[this.getDataIndex].imageUrl;
+        if (this.testData.questions[this.getDataIndex].imgCode == "a") {
           chose_the_right_choice = this.selectedAudio == 0;
         } else {
           chose_the_right_choice = this.selectedAudio == 1;
@@ -277,17 +277,18 @@ export default {
 
       let now = new Date();
       let currentAnswer = {
-        question_index: this.currentQuestion,
+        question_index: this.getDataIndex,
+        round: this.currentQuestion,
         start_time: this.startTime,
         end_time: now,
         duration: now - this.startTime,
         play_count: this.videoPlays,
-        stanza_code: this.testData.questions[this.currentQuestion].stanzaCode,
+        stanza_code: this.testData.questions[this.getDataIndex].stanzaCode,
         stanza_url: url,
-        first_option_audio: this.testData.questions[this.currentQuestion]
+        first_option_audio: this.testData.questions[this.getDataIndex]
           .AudioAUrl,
         play_count_first_audio: this.audioPlays[0],
-        second_option_audio: this.testData.questions[this.currentQuestion]
+        second_option_audio: this.testData.questions[this.getDataIndex]
           .AudioBUrl,
         play_count_second_audio: this.audioPlays[1],
         choice_index: this.selectedAudio,
