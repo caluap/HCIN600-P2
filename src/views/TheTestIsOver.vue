@@ -15,8 +15,8 @@
       entra em contato.
     </p>
     <p>
-      Foram apresentados quatro poemas, todos de Paulo Henriques Britto e lidos
-      por
+      Foram apresentados quatro poemas (ainda que as estrofes tenham sido
+      embaralhadas), todos de Paulo Henriques Britto e lidos por
       <a
         href="https://open.spotify.com/artist/1ustMNrldThyWFqmTbduQw"
         target="_blank"
