@@ -48,7 +48,8 @@
 
       <p>
         Se você tiver qualquer dúvida ou reclamação poderá falar conosco em
-        <a href="mailto:paula@fee.unicamp.br">paula@fee.unicamp.br</a>.
+        <a href="mailto:paula@fee.unicamp.br">paula@fee.unicamp.br</a> ou
+        <a href="tel:+551935210246">+55 19 3521-0246</a>.
       </p>
       <p>Mais uma vez: nosso muito obrigado pela ajuda!</p>
       <p>
