@@ -34,7 +34,7 @@ function shuffledDataOrder() {
 export default new Vuex.Store({
   state: {
     userId: null,
-    collection: "evaluation_data",
+    collection: "eval_data_2",
     collectedData: null,
     offlineMode: false,
     debugMode: 0,
