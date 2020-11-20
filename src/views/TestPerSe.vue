@@ -3,7 +3,7 @@
     id="test-per-se"
     :class="{
       'animated-test': collectedData.general_data.animated_smccs_test,
-      'static-test': !collectedData.general_data.animated_smccs_test
+      'static-test': !collectedData.general_data.animated_smccs_test,
     }"
     v-if="ready && collectedData && collectedData.general_data !== undefined"
   >
@@ -28,9 +28,9 @@
             modestbranding: 1,
             rel: 0,
             fs: 0,
-            origin: origin
+            origin: origin,
           }"
-          @ended="loopVideo()"
+          @ended="videoPlays++"
         />
       </div>
       <div v-else>
@@ -48,8 +48,8 @@
       </h2>
       <audio-component
         @ended="incAudioPlays(0)"
-        @playing="currentlyPlaying = 0"
-        @paused="currentlyPlaying = -1"
+        @playing="syncVid(0)"
+        @paused="syncVid(-1)"
         :disabled="currentlyPlaying == 1"
         v-model="selectedAudio"
         :audio-index="0"
@@ -58,8 +58,8 @@
       />
       <audio-component
         @ended="incAudioPlays(1)"
-        @playing="currentlyPlaying = 1"
-        @paused="currentlyPlaying = -1"
+        @playing="syncVid(1)"
+        @paused="syncVid(-1)"
         :disabled="currentlyPlaying == 0"
         v-model="selectedAudio"
         :audio-index="1"
@@ -106,22 +106,22 @@ export default {
       selectedAudio: -1,
       likertCertainty: -1,
       randomBool: !Math.round(Math.random()),
-      testData: testData
+      testData: testData,
     };
   },
   computed: {
     ...mapState(["collectedData", "ready", "debugMode"]),
     ...mapGetters(["getAnswerCount", "getDataIndex"]),
-    origin: function() {
+    origin: function () {
       return window.location.origin;
     },
-    currentQuestion: function() {
+    currentQuestion: function () {
       if (this.getAnswerCount !== null) {
         return this.getAnswerCount;
       }
       return 0;
     },
-    step1Class: function() {
+    step1Class: function () {
       if (this.collectedData.general_data.animated_smccs_test) {
         if (this.videoPlays == 0) {
           return "current-step";
@@ -131,7 +131,7 @@ export default {
         return "current-step";
       }
     },
-    step2Class: function() {
+    step2Class: function () {
       let c = this.randomBool ? "invert-order " : "";
       if (this.collectedData.general_data.animated_smccs_test) {
         if (this.videoPlays == 0) {
@@ -145,7 +145,7 @@ export default {
         return c + "current-step";
       }
     },
-    step3Class: function() {
+    step3Class: function () {
       if (this.collectedData.general_data.animated_smccs_test) {
         if (this.videoPlays == 0 || this.selectedAudio == -1) {
           return "waiting";
@@ -158,10 +158,10 @@ export default {
         return "current-step";
       }
     },
-    step1Show: function() {
+    step1Show: function () {
       return true;
     },
-    step2Show: function() {
+    step2Show: function () {
       if (
         !this.collectedData.general_data.animated_smccs_test ||
         this.videoPlays > 0
@@ -170,7 +170,7 @@ export default {
       }
       return false;
     },
-    step3Show: function() {
+    step3Show: function () {
       if (
         !this.collectedData.general_data.animated_smccs_test ||
         this.selectedAudio != -1
@@ -178,17 +178,17 @@ export default {
         return true;
       }
       return false;
-    }
+    },
   },
   watch: {
-    videoPlays: function(newValue, oldValue) {
+    videoPlays: function (newValue, oldValue) {
       if (oldValue == 0 && newValue == 1) {
         setTimeout(() => {
           this.$scrollTo(document.getElementById("audio-files"), 2500);
         }, 250);
       }
     },
-    selectedAudio: function(newValue, oldValue) {
+    selectedAudio: function (newValue, oldValue) {
       if (oldValue == -1 && newValue != -1) {
         setTimeout(() => {
           this.$scrollTo(document.getElementById("likert-scale"), 2500);
@@ -198,7 +198,7 @@ export default {
         // but the participant changed his audio choice...
         this.likertCertainty = -1;
       }
-    }
+    },
   },
   mounted() {
     if (this.currentQuestion == this.testData.questions.length) {
@@ -209,16 +209,18 @@ export default {
   methods: {
     ...mapActions(["pushAnswer"]),
     ...mapMutations(["incStep"]),
-    loopVideo: function(audioIndex) {
-      this.videoPlays++;
-      this.$refs.yt.player.seekTo(0);
-      if (audioIndex != -1) {
-        this.$refs.yt.player.playVideo();
-      } else {
-        this.$refs.yt.player.stopVideo();
+    syncVid: function (audioIndex) {
+      this.currentlyPlaying = audioIndex;
+      if (this.collectedData.general_data.animated_smccs_test) {
+        this.$refs.yt.player.seekTo(0);
+        if (audioIndex != -1) {
+          this.$refs.yt.player.playVideo();
+        } else {
+          this.$refs.yt.player.stopVideo();
+        }
       }
     },
-    whichIsRight: function() {
+    whichIsRight: function () {
       let which = "esquerda";
       if (this.collectedData.general_data.animated_smccs_test) {
         if (this.randomBool) {
@@ -247,11 +249,11 @@ export default {
       }
       return `(A opção correta era a da ${which}.)`;
     },
-    incAudioPlays: function(i) {
+    incAudioPlays: function (i) {
       this.$set(this.audioPlays, i, this.audioPlays[i] + 1);
       this.currentlyPlaying = -1;
     },
-    nextQuestion: function() {
+    nextQuestion: function () {
       // submits current answer to firebase
       let chose_the_right_choice = false,
         url;
@@ -291,7 +293,7 @@ export default {
         play_count_second_audio: this.audioPlays[1],
         choice_index: this.selectedAudio,
         likert_certainty: this.likertCertainty,
-        chose_the_right_choice: chose_the_right_choice
+        chose_the_right_choice: chose_the_right_choice,
       };
       this.pushAnswer(currentAnswer);
       this.startTime = now;
@@ -306,9 +308,9 @@ export default {
       if (this.currentQuestion == this.testData.questions.length) {
         this.$router.push({ name: "LastThoughts" });
       }
-    }
+    },
   },
-  components: { PageNav, AudioComponent, LikertScale }
+  components: { PageNav, AudioComponent, LikertScale },
 };
 </script>
 
