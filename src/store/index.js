@@ -1,40 +1,64 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import { db } from "../db";
-import { vuexfireMutations, firestoreAction } from "vuexfire";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import { db } from '../db';
+import { vuexfireMutations, firestoreAction } from 'vuexfire';
 
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
+import { k_combinations } from '../assets/js/common_functions';
+
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+
+import { mitigationStrategies } from '@/data';
 
 Vue.use(Vuex);
 
-// https://stackoverflow.com/a/2450976/
-function shuffledDataOrder() {
-  let array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-    currentIndex = array.length,
+function shuffleArray(a) {
+  let currentIndex = a.length,
     temporaryValue,
     randomIndex;
 
   // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
+  while (currentIndex > 0) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
 
     // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
+    temporaryValue = a[currentIndex];
+    a[currentIndex] = a[randomIndex];
+    a[randomIndex] = temporaryValue;
   }
 
-  return array;
+  return a;
+}
+
+// https://stackoverflow.com/a/2450976/
+function shuffledDataOrder(limit = 0) {
+  const indexes = [...Array(mitigationStrategies.length).keys()];
+  const combinations = shuffleArray(k_combinations(indexes, 2));
+
+  if (limit && limit < combinations.length) {
+    return unNestPairs(combinations.slice(0, limit));
+  }
+
+  return unNestPairs(combinations);
+}
+
+function unNestPairs(pairs) {
+  let p0 = [],
+    p1 = [];
+  for (let i = 0; i < pairs.length; i++) {
+    p0.push(pairs[i][0]);
+    p1.push(pairs[i][1]);
+  }
+  return [p0, p1];
 }
 
 export default new Vuex.Store({
   state: {
     userId: null,
-    collection: "eval_data_2",
+    collection: 'blablabla',
     collectedData: null,
     offlineMode: false,
     debugMode: 0,
@@ -44,16 +68,35 @@ export default new Vuex.Store({
     docRef: null,
   },
   getters: {
+    getSizeOfTest: (state) => {
+      return state.collectedData.general_data.data_indexes_0.length;
+    },
+    getCurrentComparison: (state, getters) => {
+      if (state.collectedData) {
+        return [
+          mitigationStrategies[getters.getCurrentPairOfIndexes[0]],
+          mitigationStrategies[getters.getCurrentPairOfIndexes[1]],
+        ];
+      }
+      return null;
+    },
+    getCurrentPairOfIndexes: (state, getters) => {
+      if (state.collectedData) {
+        return [
+          state.collectedData.general_data.data_indexes_0[
+            getters.getAnswerCount
+          ],
+          state.collectedData.general_data.data_indexes_1[
+            getters.getAnswerCount
+          ],
+        ];
+      }
+      return null;
+    },
     getDataIndex: (state, getters) => {
       return state.collectedData.general_data.data_indexes[
         getters.getAnswerCount
       ];
-    },
-    getAnimTest: (state) => {
-      if (state.collectedData !== null) {
-        return state.collectedData.general_data.animated_smccs_test;
-      }
-      return null;
     },
     getAboutTheParticipant: (state) => {
       if (state.collectedData !== null) {
@@ -99,31 +142,26 @@ export default new Vuex.Store({
   },
   actions: {
     init: firestoreAction((context, query = {}) => {
-      let animationMode = !Math.round(Math.random()),
-        dataIndexes = shuffledDataOrder();
+      let dataIndexes = shuffledDataOrder();
       if (query != {}) {
-        if ("debug" in query) {
-          context.commit("setDebug", parseInt(query.debug));
+        if ('debug' in query) {
+          context.commit('setDebug', parseInt(query.debug));
           console.log(`Debug mode manually set to ${query.debug}.`);
           if (query.debug > 0) {
-            context.state.collection = "debug_data";
+            context.state.collection = 'debug_data';
           }
-        }
-        if ("animation_mode" in query) {
-          animationMode = !!parseInt(query.animation_mode);
-          console.log(`Manually set animated_smccs_test as ${animationMode}.`);
         }
       }
       if (!context.state.offlineMode) {
-        context.commit("startedFetch");
+        context.commit('startedFetch');
         firebase
           .auth()
           .signInAnonymously()
           .then(
             (user) => {
-              context.commit("setUserId", user.user.uid);
+              context.commit('setUserId', user.user.uid);
               context.commit(
-                "setDocRef",
+                'setDocRef',
                 db
                   .collection(context.state.collection)
                   .doc(context.state.userId)
@@ -131,16 +169,16 @@ export default new Vuex.Store({
               context.state.docRef.get().then((doc) => {
                 if (!doc.exists) {
                   // new user!
-                  console.log("New general_data created.");
+                  console.log('New general_data created.');
                   let emptyCollectedData = {
                     general_data: {
-                      animated_smccs_test: animationMode,
-                      data_indexes: dataIndexes,
+                      data_indexes_0: dataIndexes[0],
+                      data_indexes_1: dataIndexes[1],
                       start_time: new Date(),
                       end_time: null,
                       answers_count: 0,
                       effectively_finished: false,
-                      open_ended_answer: "",
+                      open_ended_answer: '',
                       about_the_participant: {
                         age_group: null,
                         education: null,
@@ -155,9 +193,9 @@ export default new Vuex.Store({
                       console.log(
                         `Hello, ${context.state.userId}. I see this is your first time here... make yourself at home!`
                       );
-                      context.commit("endedFetch");
+                      context.commit('endedFetch');
                       return context.bindFirestoreRef(
-                        "collectedData",
+                        'collectedData',
                         db
                           .collection(context.state.collection)
                           .doc(context.state.userId)
@@ -168,9 +206,9 @@ export default new Vuex.Store({
                     });
                 } else {
                   console.log(`Welcome back, ${context.state.userId}!`);
-                  context.commit("endedFetch");
+                  context.commit('endedFetch');
                   return context.bindFirestoreRef(
-                    "collectedData",
+                    'collectedData',
                     context.state.docRef
                   );
                 }
@@ -183,26 +221,26 @@ export default new Vuex.Store({
       }
     }),
     pushAnswer(context, newAnswer) {
-      context.commit("startedFetch");
+      context.commit('startedFetch');
       let dataCopy = { ...context.state.collectedData };
       dataCopy.answers.push(newAnswer);
       dataCopy.general_data.answers_count++;
       // always has the last available end time
       dataCopy.general_data.end_time = newAnswer.end_time;
       context.state.docRef.set(dataCopy).then(() => {
-        context.commit("endedFetch");
+        context.commit('endedFetch');
       });
     },
     setupUserProfile(context, profile) {
-      context.commit("startedFetch");
+      context.commit('startedFetch');
       let dataCopy = { ...context.state.collectedData };
       dataCopy.general_data.about_the_participant = profile;
       context.state.docRef.set(dataCopy).then(() => {
-        context.commit("endedFetch");
+        context.commit('endedFetch');
       });
     },
     closeTest(context, openEndedAnswer) {
-      context.commit("startedFetch");
+      context.commit('startedFetch');
       let dataCopy = { ...context.state.collectedData };
       dataCopy.general_data.open_ended_answer = openEndedAnswer;
       dataCopy.general_data.end_time = new Date();
@@ -227,7 +265,7 @@ export default new Vuex.Store({
       };
 
       context.state.docRef.set(dataCopy).then(() => {
-        context.commit("endedFetch");
+        context.commit('endedFetch');
       });
     },
   },

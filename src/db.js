@@ -3,13 +3,11 @@ import "firebase/firestore";
 
 export const db = firebase
   .initializeApp({
-    apiKey: "AIzaSyB_dytWhgdMlVYLpO14UxY3J0fj5l9AWSk",
-    authDomain: "msc-3rd-evaluation.firebaseapp.com",
-    databaseURL: "https://msc-3rd-evaluation.firebaseio.com",
-    projectId: "msc-3rd-evaluation",
-    storageBucket: "msc-3rd-evaluation.appspot.com",
-    messagingSenderId: "935548380625",
-    appId: "1:935548380625:web:bb4d175180be69d0f26cf0",
-    measurementId: "G-M5YY821H8B",
+    apiKey: "AIzaSyDKznTUfxMr2NYWyLCgYYzYaFDS7i2pyoU",
+    authDomain: "hcin600-p2.firebaseapp.com",    
+    projectId: "hcin600-p2",
+    storageBucket: "hcin600-p2.appspot.com",
+    messagingSenderId: "575687804336",
+    appId: "1:575687804336:web:5ff96e6f2435e8095c0275"
   })
   .firestore();

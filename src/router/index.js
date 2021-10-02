@@ -1,59 +1,60 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Intro from "../views/Intro.vue";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Intro from '../views/Intro.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "Introduction",
+    path: '/',
+    name: 'Introduction',
     component: Intro,
   },
   {
-    path: "/como-funciona-o-teste",
-    name: "HowTheTestWorks",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: '/how-does-it-work',
+    name: 'HowTheTestWorks',
     component: () =>
       import(
-        /* webpackChunkName: "HowTheTestWorks" */ "../views/HowTheTestWorks.vue"
+        /* webpackChunkName: "HowTheTestWorks" */ '../views/HowTheTestWorks.vue'
       ),
   },
   {
-    path: "/tcle",
-    name: "FreeInformedConsentTerm",
+    path: '/fpic',
+    name: 'FreeInformedConsentTerm',
     component: () =>
       import(
-        /* webpackChunkName: "FreeInformedConsentTerm" */ "../views/FreeInformedConsentTerm.vue"
+        /* webpackChunkName: "FreeInformedConsentTerm" */ '../views/FreeInformedConsentTerm.vue'
       ),
   },
   {
-    path: "/um-pouco-sobre-voce",
-    name: "ParticipantProfile",
+    path: '/about-you',
+    name: 'ParticipantProfile',
     component: () =>
       import(
-        /* webpackChunkName: "ParticipantProfile" */ "../views/ParticipantProfile.vue"
+        /* webpackChunkName: "ParticipantProfile" */ '../views/ParticipantProfile.vue'
       ),
   },
   {
-    path: "/o-teste-em-si",
-    name: "TestPerSe",
+    path: '/questions',
+    name: 'TestPerSe',
     component: () =>
-      import(/* webpackChunkName: "TestPerSe" */ "../views/TestPerSe.vue"),
+      import(/* webpackChunkName: "TestPerSe" */ '../views/TestPerSe.vue'),
   },
   {
-    path: "/uma-ultima-palavra",
-    name: "LastThoughts",
+    path: '/uma-ultima-palavra',
+    name: 'LastThoughts',
     component: () =>
-      import(/* webpackChunkName: "LastThoughts" */ "../views/LastThoughts.vue"),
+      import(
+        /* webpackChunkName: "LastThoughts" */ '../views/LastThoughts.vue'
+      ),
   },
   {
-    path: "/obrigado",
-    name: "TheTestIsOver",
+    path: '/obrigado',
+    name: 'TheTestIsOver',
     component: () =>
-      import(/* webpackChunkName: "TheTestIsOver" */ "../views/TheTestIsOver.vue"),
+      import(
+        /* webpackChunkName: "TheTestIsOver" */ '../views/TheTestIsOver.vue'
+      ),
   },
 ];
 
