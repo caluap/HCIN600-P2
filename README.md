@@ -1,4 +1,4 @@
-# msc-3rd-evaluation
+# HCIN600, project 2: Surveys
 
 ## Project setup
 ```
