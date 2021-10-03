@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LongText v-show="getAnimTest !== null">
+    <LongText>
       <h1>How the test works</h1>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ad
