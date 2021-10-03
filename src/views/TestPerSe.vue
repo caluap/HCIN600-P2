@@ -10,16 +10,18 @@
         terms of alleviating the causes and/or effects of climate change?
       </h2>
       <div class="choices">
-        <div
+        <button
           class="choice"
           :class="{ 'selected-choice': currentSelectedOption == 0 }"
           @click="selectOption(0)"
         >
           <h3>{{ currentComparisonPair[0].name }}</h3>
-          <p class="description">{{ currentComparisonPair[0].description }}</p>
+          <p class="description">
+            {{ currentComparisonPair[0].description }}
+          </p>
           <p class="selection-status"></p>
-        </div>
-        <div
+        </button>
+        <button
           class="choice"
           :class="{ 'selected-choice': currentSelectedOption == 1 }"
           @click="selectOption(1)"
@@ -27,7 +29,7 @@
           <h3>{{ currentComparisonPair[1].name }}</h3>
           <p class="description">{{ currentComparisonPair[1].description }}</p>
           <p class="selection-status"></p>
-        </div>
+        </button>
       </div>
     </section>
     <PageNav
@@ -193,6 +195,7 @@ h2 {
   border: 2px solid transparent;
 
   cursor: pointer;
+  text-align: left;
 
   &.selected-choice {
     border-color: $accent;

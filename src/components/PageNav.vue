@@ -1,12 +1,11 @@
 <template>
   <div>
-    <div
-      id="but-container"
-      @click="butClick()"
-      :class="{ disabled: disabledButton }"
-    >
+    <div id="but-container" :class="{ disabled: disabledButton }">
       <!-- @click on container div solution from https://forum.vuejs.org/t/make-native-event-modifier-conditional/82730/6 -->
       <a
+        @click="butClick()"
+        @keyup.enter="butClick()"
+        tabindex="0"
         :class="{ disabled: disabledButton }"
         :is="!!href ? `router-link` : `a`"
         :to="!!href ? href : false"
@@ -19,25 +18,25 @@
 
 <script>
 export default {
-  name: "PageNav",
+  name: 'PageNav',
   props: {
-    href: { type: String, default: "" },
+    href: { type: String, default: '' },
     disabledButton: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     butClick: function() {
-      this.$emit("clicked");
-    }
-  }
+      this.$emit('clicked');
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/_variables.scss";
-@import "@/assets/css/_mixins.scss";
+@import '@/assets/css/_variables.scss';
+@import '@/assets/css/_mixins.scss';
 
 a {
   float: right;
