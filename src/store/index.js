@@ -69,7 +69,10 @@ export default new Vuex.Store({
   },
   getters: {
     getSizeOfTest: (state) => {
-      return state.collectedData.general_data.data_indexes_0.length;
+      if (state.collectedData) {
+        return state.collectedData.general_data.data_indexes_0.length;
+      }
+      return 0;
     },
     getCurrentComparison: (state, getters) => {
       if (state.collectedData) {
