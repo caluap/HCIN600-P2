@@ -3,6 +3,8 @@
     <LongText>
       <h1>Tell us a bit about yourself</h1>
       <div id="questionnaire">
+        <label for="occupation">What is your occupation? </label>
+        <input name="occupation" v-model="occupation" />
         <label for="field-of-study"
           >What is your field of study?
           <span class="hint"
@@ -81,6 +83,7 @@ export default {
       selectedEducation: '',
       selectedGender: '',
       fieldOfStudy: '',
+      occupation: '',
     };
   },
   methods: {
@@ -92,6 +95,7 @@ export default {
         education: this.selectedEducation,
         gender: this.selectedGender,
         field_of_study: this.fieldOfStudy,
+        ocupation: this.occupation,
       });
     },
   },
@@ -121,6 +125,8 @@ export default {
           if (newValue.gender != null) this.selectedGender = newValue.gender;
           if (newValue.field_of_study != null)
             this.fieldOfStudy = newValue.field_of_study;
+          if (newValue.occupation != null)
+            this.occupation = newValue.occupation;
         }
       }
     );
@@ -135,6 +141,8 @@ export default {
         this.selectedGender = this.getAboutTheParticipant.gender;
       if (this.getAboutTheParticipant.field_of_study != null)
         this.fieldOfStudy = this.getAboutTheParticipant.field_of_study;
+      if (this.getAboutTheParticipant.occupation != null)
+        this.occupation = this.getAboutTheParticipant.occupation;
     }
   },
   beforeDestroy() {
