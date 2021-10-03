@@ -1,49 +1,43 @@
 <template>
   <div>
     <LongText>
-      <h1>Umas últimas palavras antes de encerrar</h1>
+      <h1>Some last thoughts</h1>
       <p>
-        Estamos ainda em uma etapa preliminar de nossas explorações sobre como
-        representar a voz na tipografia, mas acreditamos que este caminho tem
-        bastante potencial e poderá futuramente desembocar em aplicações úteis
-        para a sociedade como um todo.
-      </p>
-      <p>
-        Caso queira nos deixar comentários sobre o teste, sobre a tipografia
-        modulada pela voz, sobre possíveis aplicações, ou qualquer outro assunto
-        que quiser, fique à vontade para usar o campo abaixo. Assim como o
-        teste, os comentários são anônimos.
+        If you'd like to leave us any comments about the test, climate change,
+        mitigation strategies, or any other topic you want, feel free to use the
+        field below. Like the test itself, these answers are all anonymous. If
+        not, just click the button below to submit your answers.
       </p>
       <textarea v-model="comment"></textarea>
     </LongText>
-    <PageNav @clicked="submitComments()">Encerrar teste</PageNav>
+    <PageNav @clicked="submitComments()">Finish the test</PageNav>
   </div>
 </template>
 
 <script>
-import LongText from "@/components/LongText.vue";
-import PageNav from "@/components/PageNav.vue";
-import { mapActions, mapMutations } from "vuex";
+import LongText from '@/components/LongText.vue';
+import PageNav from '@/components/PageNav.vue';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
-  name: "LastThoughts",
+  name: 'LastThoughts',
   data() {
     return {
-      comment: ""
+      comment: '',
     };
   },
   methods: {
-    ...mapActions(["closeTest"]),
-    ...mapMutations(["incStep"]),
+    ...mapActions(['closeTest']),
+    ...mapMutations(['incStep']),
     submitComments: function() {
       this.closeTest(this.comment);
-      this.$router.push({ name: "TheTestIsOver" });
-    }
+      this.$router.push({ name: 'TheTestIsOver' });
+    },
   },
   mounted() {
     this.incStep(-1);
   },
-  components: { LongText, PageNav }
+  components: { LongText, PageNav },
 };
 </script>
 

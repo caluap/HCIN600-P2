@@ -1,77 +1,49 @@
 <template>
   <LongText>
-    <h1>Você terminou o teste!</h1>
+    <h1>The test is over!</h1>
     <div v-if="debugMode == 2">
       <p>{{ collectedData }}</p>
     </div>
     <p>
-      Pelo seu tempo e disposição, somos muitissimamente gratos!
+      Thank you very much for your time!
     </p>
-    <p>
-      Caso queira trocar impressões, ficar sabendo de novidades de nossa
-      pesquisa ou mesmo receber convites para as etapas seguintes, mande uma
-      mensagem para
-      <a href="mailto:paula@fee.unicamp.br">paula@fee.unicamp.br</a> que a gente
-      entra em contato.
-    </p>
-    <p>
-      Foram apresentados quatro poemas (ainda que as estrofes tenham sido
-      embaralhadas), todos de Paulo Henriques Britto e lidos por
-      <a
-        href="https://open.spotify.com/artist/1ustMNrldThyWFqmTbduQw"
-        target="_blank"
-        >Gabriel Edé</a
-      >:
-      <a href="https://www.youtube.com/watch?v=JOOw5qvXAvc" target="_blank"
-        >Súcubo</a
-      >;
-      <a href="https://www.youtube.com/watch?v=CdgyhU9r54o" target="_blank"
-        >Três Prenúncios, III</a
-      >;
-      <a href="https://www.youtube.com/watch?v=BoEg8zjjm0w" target="_blank"
-        >Três tercinas, I</a
-      >;
-      <a href="https://www.youtube.com/watch?v=YlZG4mTEHiY" target="_blank"
-        >Dez sonetóides mancos, VI</a
-      >.
-    </p>
-    <p>Tenha {{ timeSensitiveGreeting }}, e até a próxima!</p>
+    <p>Have {{ timeSensitiveGreeting }}.</p>
     <p class="emoji">😊</p>
   </LongText>
 </template>
 
 <script>
-import LongText from "@/components/LongText.vue";
-import { mapMutations, mapState } from "vuex";
+import LongText from '@/components/LongText.vue';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
-  name: "TheTestIsOver",
+  name: 'TheTestIsOver',
   methods: {
-    ...mapMutations(["incStep"])
+    ...mapMutations(['incStep']),
   },
   computed: {
-    ...mapState(["debugMode", "collectedData"]),
+    ...mapState(['debugMode', 'collectedData']),
     timeSensitiveGreeting: function() {
       let now = new Date();
       let hour = now.getHours();
       if (hour > 4 && hour < 12) {
-        return "um bom dia";
+        return 'a nice rest of your morning';
       }
-      if (hour >= 12 && hour < 20) {
-        return "uma boa tarde";
+      if (hour >= 12 && hour < 18) {
+        return 'a nice rest of your afternoon';
       }
-      return "uma boa noite";
-    }
+      return 'a nice rest of your evening';
+    },
   },
   mounted() {
     this.incStep(-1);
   },
-  components: { LongText }
+  components: { LongText },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/css/_mixins.scss";
+@import '@/assets/css/_mixins.scss';
 .emoji {
   @include fs(5);
   text-align: center;

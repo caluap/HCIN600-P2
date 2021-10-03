@@ -11,14 +11,6 @@ const routes = [
     component: Intro,
   },
   {
-    path: '/how-does-it-work',
-    name: 'HowTheTestWorks',
-    component: () =>
-      import(
-        /* webpackChunkName: "HowTheTestWorks" */ '../views/HowTheTestWorks.vue'
-      ),
-  },
-  {
     path: '/about-you',
     name: 'ParticipantProfile',
     component: () =>

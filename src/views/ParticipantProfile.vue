@@ -2,13 +2,16 @@
   <div>
     <LongText>
       <h1>Tell us a bit about yourself</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit porro
-        voluptatibus aperiam doloribus maiores! Veritatis, maxime deleniti?
-        Fugit atque dolorum magnam inventore, in similique quia veritatis
-        explicabo asperiores, hic consequuntur!
-      </p>
       <div id="questionnaire">
+        <label for="field-of-study"
+          >What is your field of study?
+          <span class="hint"
+            >Include eventual subfields. For instance, if you work with
+            Artificial Intelligence, you could write “Computer science,
+            Artificial intelligence”.</span
+          ></label
+        >
+        <input name="field-of-study" v-model="fieldOfStudy" />
         <label for="education">Which is your current educational level?</label>
         <select name="education" v-model="selectedEducation">
           <option disabled value>Click to choose</option>
@@ -30,15 +33,6 @@
             gender
           }}</option>
         </select>
-        <label for="field-of-study"
-          >What is your field of study?
-          <span class="hint"
-            >Include eventual subfields. For instance, if you work with
-            Artificial Intelligence, you could write “Computer science,
-            Artificial intelligence”.</span
-          ></label
-        >
-        <input name="field-of-study" v-model="fieldOfStudy" />
       </div>
     </LongText>
     <PageNav
@@ -176,6 +170,14 @@ export default {
 
   border: 1px solid #aaa;
   // box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+
+label {
+  display: block;
+  input + &,
+  select + & {
+    margin-top: 3rem;
+  }
 }
 
 input {
