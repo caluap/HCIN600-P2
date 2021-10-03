@@ -183,6 +183,7 @@ export default new Vuex.Store({
                         age_group: null,
                         education: null,
                         gender: null,
+                        field_of_study: null,
                       },
                     },
                     answers: [],

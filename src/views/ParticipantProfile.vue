@@ -30,14 +30,19 @@
             gender
           }}</option>
         </select>
+        <label for="field-of-study"
+          >What is your field of study?
+          <span class="hint"
+            >Include eventual subfields. For instance, if you work with
+            Artificial Intelligence, you could write “Computer science,
+            Artificial intelligence”.</span
+          ></label
+        >
+        <input name="field-of-study" v-model="fieldOfStudy" />
       </div>
     </LongText>
     <PageNav
-      :disabled-button="
-        selectedAgeGroup == '' ||
-          selectedEducation == '' ||
-          selectedGender == ''
-      "
+      :disabled-button="!canContinue"
       @clicked="submit()"
       href="questions"
       >Let’s start!</PageNav
@@ -81,6 +86,7 @@ export default {
       selectedAgeGroup: '',
       selectedEducation: '',
       selectedGender: '',
+      fieldOfStudy: '',
     };
   },
   methods: {
@@ -91,12 +97,20 @@ export default {
         age_group: this.selectedAgeGroup,
         education: this.selectedEducation,
         gender: this.selectedGender,
+        field_of_study: this.fieldOfStudy,
       });
     },
   },
   computed: {
     ...mapState(['collectedData']),
     ...mapGetters(['getAboutTheParticipant']),
+    canContinue: function() {
+      return (
+        this.selectedAgeGroup != '' &&
+        this.selectedEducation != '' &&
+        this.selectedGender != ''
+      );
+    },
   },
   created() {
     this.incStep(3);
@@ -111,6 +125,8 @@ export default {
           if (newValue.education != null)
             this.selectedEducation = newValue.education;
           if (newValue.gender != null) this.selectedGender = newValue.gender;
+          if (newValue.field_of_study != null)
+            this.fieldOfStudy = newValue.field_of_study;
         }
       }
     );
@@ -123,6 +139,8 @@ export default {
         this.selectedEducation = this.getAboutTheParticipant.education;
       if (this.getAboutTheParticipant.gender != null)
         this.selectedGender = this.getAboutTheParticipant.gender;
+      if (this.getAboutTheParticipant.field_of_study != null)
+        this.fieldOfStudy = this.getAboutTheParticipant.field_of_study;
     }
   },
   beforeDestroy() {
@@ -139,7 +157,12 @@ export default {
   margin-top: 2rem;
 }
 
-select {
+.hint {
+  display: block;
+  @include fs(-1);
+}
+
+.generic-field {
   cursor: pointer;
   display: block;
   @include fs(0);
@@ -153,8 +176,17 @@ select {
 
   border: 1px solid #aaa;
   // box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+
+input {
+  @extend .generic-field;
+}
+
+select {
+  @extend .generic-field;
 
   border-radius: 0.5em;
+
   -moz-appearance: none;
   -webkit-appearance: none;
 

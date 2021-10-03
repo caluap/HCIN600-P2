@@ -10,7 +10,8 @@
       "about_the_participant": {
         "age_group": null,
         "education": null,
-        "gender": null
+        "gender": null,
+        "field_of_study": null
       }
     },
     "statistics": {
