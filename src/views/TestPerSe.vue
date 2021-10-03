@@ -3,25 +3,30 @@
     id="test-per-se"
     v-if="ready && collectedData && collectedData.general_data !== undefined"
   >
-    <section id="smcc">
+    <section id="question-asker">
       <h1>Round {{ currentQuestion + 1 }} of {{ sizeOfTest }}</h1>
-      <p>{{ currentSelectedOption }}</p>
       <h2>
         Which of the two options below would you consider the most effective in
         terms of alleviating the causes and/or effects of climate change?
       </h2>
-      <div>
-        <div>
+      <div class="choices">
+        <div
+          class="choice"
+          :class="{ 'selected-choice': currentSelectedOption == 0 }"
+          @click="selectOption(0)"
+        >
           <h3>{{ currentComparisonPair[0].name }}</h3>
-          <p v-if="currentSelectedOption == 0">It's-a me, Mario!</p>
-          <p>{{ currentComparisonPair[0].description }}</p>
-          <button @click="selectOption(0)">Choose this fucker</button>
+          <p class="description">{{ currentComparisonPair[0].description }}</p>
+          <p class="selection-status"></p>
         </div>
-        <div>
+        <div
+          class="choice"
+          :class="{ 'selected-choice': currentSelectedOption == 1 }"
+          @click="selectOption(1)"
+        >
           <h3>{{ currentComparisonPair[1].name }}</h3>
-          <p v-if="currentSelectedOption == 1">It's-a me, Luigi!</p>
-          <p>{{ currentComparisonPair[1].description }}</p>
-          <button @click="selectOption(1)">Choose this other fucker</button>
+          <p class="description">{{ currentComparisonPair[1].description }}</p>
+          <p class="selection-status"></p>
         </div>
       </div>
     </section>
@@ -126,6 +131,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/css/_mixins.scss';
 @import '@/assets/css/_variables.scss';
+@import '@/assets/css/_media_queries.scss';
 
 #test-per-se {
   display: grid;
@@ -134,74 +140,26 @@ export default {
   counter-reset: instruction;
 }
 
-.static-test #smcc > div {
-  background-color: #ccc;
-}
-.animated-test #smcc > div {
-  background-color: #000;
-}
-
 h1 {
   margin-bottom: 0;
-  font-weight: 750;
-  @include fs(0);
+  font-weight: 500;
+  @include fs(2);
 }
 
-#smcc {
+#question-asker {
   width: 100%;
   display: grid;
+  grid-gap: 1rem;
   justify-content: center;
   h2 {
     display: block;
+    font-weight: 500;
     @include sizer;
   }
   & > div {
     margin-top: 1rem;
     display: grid;
     justify-content: center;
-  }
-}
-.smcc-img {
-  max-width: 100%;
-}
-
-#audio-files {
-  width: 100%;
-  display: grid;
-  @media (min-width: 720px) {
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 2rem;
-    grid-row-gap: 1rem;
-    &.invert-order {
-      & > :nth-child(2) {
-        grid-column: 2;
-        grid-row: 2;
-      }
-      & > :nth-child(3) {
-        grid-column: 1;
-        grid-row: 2;
-      }
-    }
-  }
-
-  @media (max-width: 720px) {
-    grid-template-columns: 1fr;
-    grid-row-gap: 2rem;
-    &.invert-order {
-      & > :nth-child(2) {
-        grid-row: 3;
-      }
-      & > :nth-child(3) {
-        grid-row: 2;
-      }
-    }
-  }
-
-  h2 {
-    @media (min-width: 720px) {
-      grid-column: 1 / span 2;
-      grid-row: 1;
-    }
   }
 }
 
@@ -220,20 +178,55 @@ h2 {
   opacity: 0.5;
 }
 
-.current-step h2 {
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  @include respond-below(sm) {
+    grid-template-columns: 1fr;
+  }
 }
 
-.animated-test {
-  .current-step h2 {
-    color: $accent;
-    position: relative;
-    &:after {
-      content: '→';
-      position: absolute;
-      left: -3ch;
-      top: 0;
-      font-weight: 800;
+.choice {
+  padding: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 2px solid transparent;
+
+  cursor: pointer;
+
+  &.selected-choice {
+    border-color: $accent;
+    background-color: rgba(255, 255, 255, 0.8);
+    h3 {
+      font-weight: 500;
     }
+    .selection-status {
+      &:after {
+        content: '👍';
+        color: black;
+      }
+    }
+  }
+
+  .selection-status {
+    text-align: center;
+    @include fs(1);
+    &:after {
+      content: '_';
+      color: transparent;
+    }
+  }
+  border-radius: 1rem;
+  display: grid;
+  grid-template-rows: auto auto min-content;
+  grid-gap: 1rem;
+  h3 {
+    @include fs(1);
+  }
+
+  .description {
+    @include fs(-1);
+    font-style: italic;
   }
 }
 </style>
