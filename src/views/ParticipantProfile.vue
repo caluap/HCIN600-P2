@@ -107,7 +107,7 @@ export default {
     },
   },
   created() {
-    this.incStep(3);
+    this.incStep(1);
     // in case data isn't loaded but loads after page is set up, this watcher
     // should update the comboboxes. from: https://dev.to/viniciuskneves/watch-for-vuex-state-changes-2mgj
     this.unwatch = this.$store.watch(

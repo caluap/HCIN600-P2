@@ -20,30 +20,30 @@
 </template>
 
 <script>
-import { testData } from "@/data.js";
-import { mapState, mapActions } from "vuex";
-import ProgressBar from "@/components/ProgressBar.vue";
+import { mapState, mapActions, mapGetters } from 'vuex';
+import ProgressBar from '@/components/ProgressBar.vue';
 
 export default {
-  name: "app",
+  name: 'app',
   components: { ProgressBar },
   data() {
     return {};
   },
   computed: {
     ...mapState([
-      "userId",
-      "collectedData",
-      "ready",
-      "currentStep",
-      "debugMode"
+      'userId',
+      'collectedData',
+      'ready',
+      'currentStep',
+      'debugMode',
     ]),
+    ...mapGetters(['getSizeOfTest']),
     nSteps: function() {
-      return testData.questions.length + 4;
-    }
+      return this.getSizeOfTest + 2;
+    },
   },
   methods: {
-    ...mapActions(["pushAnswer"]),
+    ...mapActions(['pushAnswer']),
     newAnswer() {
       this.pushAnswer({
         start_time: new Date(),
@@ -51,7 +51,7 @@ export default {
         duration: new Date(),
         play_count: Math.round(Math.random() * 5),
         stanza_code: `#${Math.round(Math.random() * 9999)}`,
-        stanza_url: "http://www.example.com/",
+        stanza_url: 'http://www.example.com/',
         first_option_audio: `/audio/audio-${Math.round(
           Math.random() * 50
         )}.mp3`,
@@ -62,16 +62,16 @@ export default {
         play_count_second_audio: Math.round(Math.random() * 5),
         choice_index: Math.round(Math.random()),
         likert_certainty: Math.round(Math.random() * 5),
-        chose_the_right_choice: !Math.round(Math.random())
+        chose_the_right_choice: !Math.round(Math.random()),
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-@import "@/assets/css/_variables.scss";
-@import "@/assets/css/_mixins.scss";
+@import '@/assets/css/_variables.scss';
+@import '@/assets/css/_mixins.scss';
 
 #app {
   margin: 0 auto;

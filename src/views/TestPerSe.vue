@@ -86,7 +86,7 @@ export default {
     if (this.currentQuestion == this.sizeOfTest) {
       this.$router.push({ name: 'LastThoughts' });
     }
-    this.incStep(4 + this.currentQuestion);
+    this.incStep(2 + this.currentQuestion);
   },
   methods: {
     ...mapActions(['pushAnswer']),
@@ -119,7 +119,7 @@ export default {
       this.randomBool = !Math.round(Math.random());
       this.currentSelectedOption = -1;
 
-      this.incStep(4 + this.currentQuestion);
+      this.incStep(2 + this.currentQuestion);
 
       if (this.currentQuestion == this.getSizeOfTest) {
         this.$router.push({ name: 'LastThoughts' });
