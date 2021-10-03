@@ -19,14 +19,6 @@ const routes = [
       ),
   },
   {
-    path: '/fpic',
-    name: 'FreeInformedConsentTerm',
-    component: () =>
-      import(
-        /* webpackChunkName: "FreeInformedConsentTerm" */ '../views/FreeInformedConsentTerm.vue'
-      ),
-  },
-  {
     path: '/about-you',
     name: 'ParticipantProfile',
     component: () =>
@@ -41,7 +33,7 @@ const routes = [
       import(/* webpackChunkName: "TestPerSe" */ '../views/TestPerSe.vue'),
   },
   {
-    path: '/uma-ultima-palavra',
+    path: '/some-last-thoughts',
     name: 'LastThoughts',
     component: () =>
       import(
@@ -49,8 +41,8 @@ const routes = [
       ),
   },
   {
-    path: '/obrigado',
-    name: 'TheTestIsOver',
+    path: '/thank-you',
+    name: 'TheTestIsOver', // nooooooow
     component: () =>
       import(
         /* webpackChunkName: "TheTestIsOver" */ '../views/TheTestIsOver.vue'
