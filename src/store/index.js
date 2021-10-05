@@ -58,7 +58,7 @@ function unNestPairs(pairs) {
 export default new Vuex.Store({
   state: {
     userId: null,
-    collection: 'blablabla',
+    collection: 'official_test',
     collectedData: null,
     offlineMode: false,
     debugMode: 0,
