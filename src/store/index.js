@@ -145,7 +145,7 @@ export default new Vuex.Store({
   },
   actions: {
     init: firestoreAction((context, query = {}) => {
-      let dataIndexes = shuffledDataOrder();
+      let dataIndexes = shuffledDataOrder(40);
       if (query != {}) {
         if ('debug' in query) {
           context.commit('setDebug', parseInt(query.debug));
