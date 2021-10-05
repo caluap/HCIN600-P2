@@ -15,11 +15,6 @@ export var mitigationStrategies = [
       'Governments should incentivize switching internal combustion engine cars with electric cars.',
   },
   {
-    name: 'Public Transportation',
-    description:
-      'People should generally choose public transportation whenever available over using personal vehicles.',
-  },
-  {
     name: 'Turn off devices when not in use',
     description:
       'People should generally avoid leaving appliances on when not in use to save on power.',
@@ -40,25 +35,6 @@ export var mitigationStrategies = [
       'Researchers and companies should invest in finding ways of removing emissions and pollution from manufacturing and industrial processes.',
   },
   {
-    name: 'Sustainable farming practices',
-    description:
-      'Governments should incentivize new practices in farming, making them profitable while also environmentally sound, energy efficient.',
-  },
-  {
-    name: ' Cleaning up contaminated areas',
-    description:
-      'Governments should work towards cleaning up existing hazardous waste and abandoned sites.',
-  },
-  {
-    name: 'Switch from global marketplaces to local marketplaces',
-    description:
-      'People should generally shop locally, choosing neighborhood stores over big chains like Amazon and Walmart.',
-  },
-  {
-    name: 'Reduce flying',
-    description: 'People should avoid taking plane trips.',
-  },
-  {
     name: 'Design computers/electronics for disassembly/deconstruction',
     description:
       'Researchers and companies should develop products that are easier to repair, upgrade, or even be disassembled to have their components reused in other products/applications.',
@@ -77,11 +53,6 @@ export var mitigationStrategies = [
     name: 'Remote work',
     description:
       'Researchers and companies should switch to remote work, decreasing emissions from transportation and office upkeep (especially, lighting and heating).',
-  },
-  {
-    name: 'Green software design',
-    description:
-      'Researchers and companies should treat sustainability as a first-class requirement in all stages of software development, so that environmental impact of new systems are reduced.',
   },
   {
     name: 'Decentralized energy production and distribution systems',
