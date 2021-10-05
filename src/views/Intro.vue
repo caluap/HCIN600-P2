@@ -35,6 +35,11 @@
         data you submit is anonymous. Also, if at any time you wish to quit the
         test, please do so!
       </p>
+      <p>
+        If you have any comments, suggestions, bug reports, etc: feel free to
+        send them to us at
+        <a href="mailto:calua.pataca@gmail.com">calua.pataca@gmail.com</a>.
+      </p>
       <p>Thank you, and let's start.</p>
     </LongText>
     <PageNav href="about-you">Tell us about yourself →</PageNav>
