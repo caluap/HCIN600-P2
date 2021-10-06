@@ -270,7 +270,7 @@ export default {
         education: this.selectedEducation,
         gender: this.selectedGender,
         field_of_study: this.fieldOfStudy,
-        ocupation: this.occupation,
+        occupation: this.occupation,
         is_it_an_important_issue: this.anImportantIssue,
         will_it_affect_future_generations: this.effectsOnFutureGenerations,
         what_is_it_main_cause: this.mainCause,
